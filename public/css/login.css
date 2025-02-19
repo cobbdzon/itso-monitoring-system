@@ -1,0 +1,27 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.main-container #form-container {
+  display: flex;
+  flex-direction: column;
+  width: 28rem;
+  height: auto;
+}
+.main-container #form-container header {
+  display: flex;
+  flex-direction: column;
+}
+.main-container #form-container header span {
+  text-align: center;
+}
+.main-container #form-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/*# sourceMappingURL=login.css.map */

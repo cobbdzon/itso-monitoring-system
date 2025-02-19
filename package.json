@@ -1,0 +1,27 @@
+{
+  "name": "cla-monitoring-system",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www",
+    "scss": "sass --watch ./public/scss:./public/css"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "js-sha256": "^0.11.0",
+    "morgan": "~1.9.1",
+    "pg": "^8.13.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.5"
+  },
+  "devDependencies": {
+    "@prettier/plugin-pug": "^3.2.1",
+    "nodemon": "^3.1.9",
+    "prettier": "^3.5.1"
+  }
+}

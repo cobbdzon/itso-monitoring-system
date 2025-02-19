@@ -1,0 +1,4 @@
+SELECT
+    details
+FROM
+    users
