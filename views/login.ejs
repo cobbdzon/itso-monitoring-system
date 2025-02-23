@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+
+<body>
+    <main>
+        <form action="/login" method="post">
+            <header>
+                <span>Log in</span>
+                <span>Welcome back</span>
+            </header>
+            <div class=".field">
+                <input id="username" list="users" type="text" autocomplete="off">
+                <datalist id="users">
+                    <% users.forEach(function(username){ %>
+                        <option><%= username %></option>
+                    <%  }); %>
+                </datalist>
+            </div>
+            <div class=".field">
+
+            </div>
+            <div class=".field">
+
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>

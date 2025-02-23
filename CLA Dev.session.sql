@@ -1,4 +1,0 @@
-SELECT
-    details
-FROM
-    users
