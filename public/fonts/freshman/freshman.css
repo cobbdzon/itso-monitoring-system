@@ -1,0 +1,9 @@
+/* freshman-normal */
+@font-face {
+	font-family: Freshman;
+	font-style: normal;
+	font-weight: 400;
+	font-stretch: 100%;
+	src: local("Freshman"), url(freshman-normal.woff2) format("woff2");
+}
+

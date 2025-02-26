@@ -1,4 +1,8 @@
-@use "./global.scss";
+@use "./global.scss" as *;
+
+body {
+    background-color: $beige-color;
+}
 
 main {
 	display: flex;
@@ -6,6 +10,8 @@ main {
     align-items: center;
 
     height: 75vh;
+
+    color: $brown-color;
 
 	form {
         display: flex;
@@ -17,6 +23,7 @@ main {
 		header {
 			text-align: center;
 
+            font-family: "Freshman";
 			font-size: 2em;
 			font-weight: bolder;
 		}
@@ -29,4 +36,8 @@ main {
             }
 		}
 	}
+}
+
+#error-flash {
+    color: red;
 }

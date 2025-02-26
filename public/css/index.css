@@ -1,3 +1,10 @@
+@font-face {
+  font-family: Freshman;
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  src: local("Freshman"), url(../fonts/freshman/freshman-normal.woff2) format("woff2");
+}
 * {
   margin: 0;
   padding: 0;
@@ -14,6 +21,37 @@ img {
   background-repeat: no-repeat;
   background-size: cover;
   shape-margin: 1rem;
+}
+
+input[type=submit] {
+  background-color: #f0c10c;
+  padding-inline: 2em;
+  border-style: solid;
+  border-color: rgb(191.4285714286, 153.9404761905, 9.5714285714);
+}
+
+body {
+  background-color: #f3e0bc;
+}
+body main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+  gap: 1em;
+}
+body main header {
+  font-weight: bolder;
+  font-size: 3em;
+}
+body main #info {
+  display: flex;
+  flex-direction: column;
+}
+body main #buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 /*# sourceMappingURL=index.css.map */

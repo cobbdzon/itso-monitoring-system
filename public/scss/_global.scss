@@ -1,3 +1,13 @@
+@use 'sass:color';
+
+@font-face {
+	font-family: Freshman;
+	font-style: normal;
+	font-weight: 400;
+	font-stretch: 100%;
+	src: local("Freshman"), url(../fonts/freshman/freshman-normal.woff2) format("woff2");
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -8,6 +18,10 @@
 	font-family: monospace;
 }
 
+$yellow-color: #f0c10c;
+$beige-color: #f3e0bc;
+$brown-color: #34221b;
+
 img {
 	max-width: 100%;
 	height: auto;
@@ -16,4 +30,11 @@ img {
 	background-repeat: no-repeat;
 	background-size: cover;
 	shape-margin: 1rem;
+}
+
+input[type="submit"] {
+	background-color: $yellow-color;
+	padding-inline: 2em;
+	border-style: solid;
+	border-color: color.adjust($yellow-color, $lightness: -10%);
 }

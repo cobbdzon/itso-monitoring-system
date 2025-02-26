@@ -1,19 +1,21 @@
+@use "./global" as *;
+
 nav {
     position: -webkit-sticky; /* Safari */
     position: sticky;
     top: 0;
     z-index: 1;
 
-    height: 3rem;
+    height: 5rem;
     padding-inline: 4em;
 
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1em;
 
-    background-color: #112;
+    background-color: $brown-color;
 
-    color: #fff;
+    color: $yellow-color;
     font-family: monospace;
     font-weight: bold;
 
@@ -37,6 +39,8 @@ nav {
         }
 
         .title {
+            font-family: "Freshman";
+            font-weight: normal;
             transition: background-color 250ms;
             &:hover {
                 background-color: hsla(0, 100%, 100%, 10%);
@@ -44,7 +48,7 @@ nav {
         }
 
         .subtitle {
-            color: #bbb;
+            color: $beige-color;
             font-size: 0.75em;
         }
     }
@@ -61,7 +65,7 @@ nav {
             cursor: pointer;
             transition: color 250ms;
             &:hover {
-                color: #FF4081;
+                color: $beige-color;
             }
         }
     }

@@ -1,15 +1,47 @@
+@font-face {
+  font-family: Freshman;
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  src: local("Freshman"), url(../fonts/freshman/freshman-normal.woff2) format("woff2");
+}
+* {
+  margin: 0;
+  padding: 0;
+  color-scheme: light;
+  box-sizing: border-box;
+  font-family: monospace;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  font-style: italic;
+  background-repeat: no-repeat;
+  background-size: cover;
+  shape-margin: 1rem;
+}
+
+input[type=submit] {
+  background-color: #f0c10c;
+  padding-inline: 2em;
+  border-style: solid;
+  border-color: rgb(191.4285714286, 153.9404761905, 9.5714285714);
+}
+
 nav {
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
   z-index: 1;
-  height: 3rem;
+  height: 5rem;
   padding-inline: 4em;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1em;
-  background-color: #112;
-  color: #fff;
+  background-color: #34221b;
+  color: #f0c10c;
   font-family: monospace;
   font-weight: bold;
   text-decoration: none;
@@ -29,13 +61,15 @@ nav #nav-title > div {
   border-radius: 0.25em;
 }
 nav #nav-title .title {
+  font-family: "Freshman";
+  font-weight: normal;
   transition: background-color 250ms;
 }
 nav #nav-title .title:hover {
   background-color: hsla(0, 100%, 100%, 0.1);
 }
 nav #nav-title .subtitle {
-  color: #bbb;
+  color: #f3e0bc;
   font-size: 0.75em;
 }
 nav #nav-links {
@@ -50,7 +84,7 @@ nav #nav-links div {
   transition: color 250ms;
 }
 nav #nav-links div:hover {
-  color: #FF4081;
+  color: #f3e0bc;
 }
 @media screen and (max-width: 768px) {
   nav {

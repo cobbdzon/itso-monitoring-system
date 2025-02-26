@@ -1,1 +1,29 @@
-@use "./global.scss";
+@use "./global.scss" as *;
+
+body {
+	background-color: $beige-color;
+
+	main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        height: 75vh;
+
+        gap: 1em;
+
+		header {
+			font-weight: bolder;
+            font-size: 3em;
+		}
+        #info {
+            display: flex;
+            flex-direction: column;
+        }
+        #buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+	}
+}

@@ -13,9 +13,10 @@
     <main>
         <form id="login-form" action="/api/login" method="post">
             <header>
-                CLA MONITORING SYSTEM
+                COMPUTER LAB ASSISTANT <br>
+                MONITORING SYSTEM
             </header>
-            <div class="flash">
+            <div id="error-flash">
                 <% if (messages && messages.error) { %>
                     <%- messages.error  %>
                 <% } %>
