@@ -1,17 +1,9 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
-import { Person } from "./database.js";
+import { getUserFromId, getUserFromUsername } from "./database.js";
 import { compare } from "bcrypt";
 
 const LocalStrategy = Strategy;
-
-async function getUserFromUsername(username) {
-	return await Person.findOne({ where: { username: username } });
-}
-
-async function getUserFromId(id) {
-	return await Person.findOne({ where: { id: id } });
-}
 
 async function authenthicateUser(username, password, done) {
 	const user = await getUserFromUsername(username);
@@ -35,9 +27,9 @@ async function authenthicateUser(username, password, done) {
 
 function checkAuthentication(req, res, next) {
 	if (req.isAuthenticated()) {
-		return next()
+		return next();
 	}
-	res.redirect("/login")
+	res.redirect("/login");
 }
 
 passport.use(
@@ -53,5 +45,5 @@ passport.deserializeUser(async (id, done) => {
 
 console.log("Passport configured");
 
-export { checkAuthentication }
+export { checkAuthentication, getUserFromUsername };
 export default passport;

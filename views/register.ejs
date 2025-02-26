@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log in</title>
+    <title>Register</title>
     <link rel="stylesheet" href="/css/login.css">
 </head>
 
 <body>
     <%- include('partials/nav', {navLocation: navLocation}); %>
     <main>
-        <form id="login-form" action="/api/login" method="post">
+        <form id="login-form" action="/api/register" method="post">
             <header>
-                CLA MONITORING SYSTEM
+                CREATE A NEW CLA ACCOUNT
             </header>
             <div class="flash">
                 <% if (messages && messages.error) { %>
@@ -21,25 +21,22 @@
                 <% } %>
             </div>
             <div class="field">
-                <label for="username">USERNAME:</label>
-                <input id="username" name="username" list="users" type="text" autocomplete="off">
-                <datalist id="users">
-                    <% users.forEach(function(username){ %>
-                        <option>
-                            <%= username %>
-                        </option>
-                        <% }); %>
-                </datalist>
+                <label for="username">CLA FULL NAME:</label>
+                <input id="username" name="username" type="text" autocomplete="off">
             </div>
             <div class="field">
                 <label for="password">PASSWORD:</label>
                 <input id="password" name="password" type="password" autocomplete="off">
             </div>
+            <div class="field">
+                <label for="confirm-Password">CONFIRM PASSWORD:</label>
+                <input id="confirm-Password" name="confirmPassword" type="password" autocomplete="off">
+            </div>
             <div class="submit">
-                <input id="submit" type="submit" value="LOG IN">
+                <input id="submit" type="submit" value="REGISTER">
             </div>
             <div class="text">
-                Are you a new CLA? <a href="/register">Register</a>
+                Already have an account? <a href="/login">Log in</a>
             </div>
         </form>
     </main>

@@ -5,18 +5,31 @@
   <title>
     CLA
   </title>
-  <link rel='stylesheet' href='/css/style.css' />
+  <link rel='stylesheet' href='/css/index.css' />
 </head>
 
 <body>
-  <h1>
-    Hello <%= username %>
-  </h1>
-  <p>Welcome to CLA
-  </p>
-  <form action="/api/logout" method="post">
-    <input type="submit" value="Logout"></inpit>
-  </form>
+  <%- include('partials/nav', {navLocation: navLocation}); %>
+    <h1>Welcome, CLA <%= username %></h1>
+    <p>Welcome to the CLA Monitoring System</p>
+    <p>You are: <%= userStatus %></p>
+    <p>Last Log: <%= lastLog %></p>
+
+    <form action="/api/logout" method="post">
+      <input type="submit" value="Logout"></inpit>
+    </form>
+
+    <% if (isTimedIn == false) { %>
+      <form action="/api/timein" method="post">
+        <input type="submit" value="Time in"></inpit>
+      </form>
+    <% } %> 
+
+    <% if (isTimedIn == true) { %>
+      <form action="/api/timeout" method="post">
+        <input type="submit" value="Time out"></inpit>
+      </form>
+    <% } %> 
 </body>
 
 </html>
