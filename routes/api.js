@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { genSalt, hash } from "bcrypt";
 import { Person } from "../modules/database.js";
-import authenthicateUser from "../modules/credentials.js";
+import passport from "../modules/credentials.js";
 
 var router = Router();
 
@@ -27,10 +27,13 @@ router.post("/register", async (req, res, next) => {
 	}
 });
 
-router.post("/login", (req, res, next) => {
-	const { username, password } = req.body;
-	authenthicateUser(username)
-	res.redirect("/login");
-});
+router.post(
+	"/login",
+	passport.authenticate("local", {
+		successRedirect: "/",
+		failureRedirect: "/login",
+		failureFlash: true,
+	})
+);
 
 export default router;

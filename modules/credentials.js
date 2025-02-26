@@ -1,18 +1,57 @@
-import passport from "passport-local";
+import passport from "passport";
+import { Strategy } from "passport-local";
 import { Person } from "./database.js";
 import { compare } from "bcrypt";
 
-const LocalStrategy = passport.Strategy;
+const LocalStrategy = Strategy;
 
-async function authenthicateUser(username, password, done) {
-	const user = await Person.findOne({ where: { username: username } });
-	console.log(user.getDataValue("hashed_password"), password);
+async function getUserFromUsername(username) {
+	return await Person.findOne({ where: { username: username } });
 }
 
-//passport.new(new LocalStrategy(), authenthicateUser);
+async function getUserFromId(id) {
+	return await Person.findOne({ where: { id: id } });
+}
 
-//passport.serializeUser((user, done) => {});
+async function authenthicateUser(username, password, done) {
+	const user = await getUserFromUsername(username);
 
-//passport.deserializeUser((id, done) => {});
+	if (user == null) {
+		return done(null, false, { message: "No user with that username" });
+	}
 
-export default authenthicateUser;   
+	try {
+		if (await compare(password, user.hashed_password)) {
+			console.log("auth success");
+			return done(null, user);
+		} else {
+			console.log("password incorrect");
+			return done(null, false, { message: "Password incorrect" });
+		}
+	} catch (err) {
+		console.log(err);
+	}
+}
+
+function checkAuthentication(req, res, next) {
+	if (req.isAuthenticated()) {
+		return next()
+	}
+	res.redirect("/login")
+}
+
+passport.use(
+	new LocalStrategy(
+		{ usernameField: "username", passwordField: "password" },
+		authenthicateUser
+	)
+);
+passport.serializeUser((user, done) => done(null, user.id));
+passport.deserializeUser(async (id, done) => {
+	return done(null, await getUserFromId(id));
+});
+
+console.log("Passport configured");
+
+export { checkAuthentication }
+export default passport;

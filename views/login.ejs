@@ -15,6 +15,11 @@
             <header>
                 CLA MONITORING SYSTEM
             </header>
+            <div class="flash">
+                <% if (messages && messages.error) { %>
+                    <%- messages.error  %>
+                <% } %>
+            </div>
             <div class="field">
                 <label for="username">USERNAME:</label>
                 <input id="username" name="username" list="users" type="text" autocomplete="off">

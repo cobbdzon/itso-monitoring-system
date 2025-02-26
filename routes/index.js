@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { Person } from "../modules/database.js";
+import { checkAuthentication } from "../modules/credentials.js";
 
 var router = Router();
 
 /* GET home page. */
-router.get("/", (req, res, next) => {
-	res.render("index", { title: "Express" });
+router.get("/", checkAuthentication, async (req, res, next) => {
+	res.render("index", { username: req.user.username });
 });
 
 router.get("/login", (req, res, next) => {

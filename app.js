@@ -5,10 +5,18 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { fileURLToPath } from "url";
 import { renderFile } from "ejs";
+import flash from "express-flash";
+import session from "express-session";
+import { configDotenv } from "dotenv";
+import passport from "./modules/credentials.js";
 
 import indexRouter from "./routes/index.js";
 import usersRouter from "./routes/users.js";
 import apiRouter from "./routes/api.js";
+
+if (process.env.NODE_ENV !== "production") {
+	configDotenv()
+}
 
 var app = express();
 
@@ -19,6 +27,15 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 app.set("views", path.join(__dirname, "views"));
 app.engine('.ejs', renderFile);
 app.set("view engine", "ejs");
+
+app.use(flash())
+app.use(session({
+	secret: process.env.SESSION_SECRET,
+	resave: false,
+	saveUninitialized: false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(logger("dev"));
 app.use(express.json());
