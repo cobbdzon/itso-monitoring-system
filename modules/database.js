@@ -1,3 +1,4 @@
+import { genSalt, hash } from "bcrypt";
 import { Sequelize, DataTypes } from "sequelize";
 
 const SequelizeInstance = new Sequelize("cla-db-dev", "admin", "", {
@@ -129,8 +130,6 @@ async function timeOutUser(userOrUsername) {
 
 	return true;
 }
-
-console.log(await checkUserTimedIn("Clark Jacob Dizon"));
 
 SequelizeInstance.sync({ forced: true });
 

@@ -43,7 +43,5 @@ passport.deserializeUser(async (id, done) => {
 	return done(null, await getUserFromId(id));
 });
 
-console.log("Passport configured");
-
 export { checkAuthentication, getUserFromUsername };
 export default passport;
