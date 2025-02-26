@@ -10,39 +10,39 @@
 
 <body>
     <%- include('partials/nav', {navLocation: navLocation}); %>
-        <main>
-            <header>
-                Welcome, <%= username %>
-            </header>
-            <div id="info">
-                <span>
-                    <b>You are currently:</b>
-                    <%= userStatus %>
-                </span>
-                <span>
-                    <b>Last Log time:</b>
-                    <%= lastLog %>
-                </span>
-            </div>
+    <main>
+        <header>
+            Welcome, <%= username %>
+        </header>
+        <div id="info">
+            <span>
+                <b>You are currently:</b>
+                <%= userStatus %>
+            </span>
+            <span>
+                <b>Last Log time:</b>
+                <%= lastLog %>
+            </span>
+        </div>
 
-            <div id="buttons">
-                <form action="/api/logout" method="post">
-                    <input type="submit" value="Logout"></inpit>
+        <div id="buttons">
+            <form action="/api/logout" method="post">
+                <input type="submit" value="Logout"></inpit>
+            </form>
+
+            <% if (isTimedIn==false) { %>
+                <form action="/api/timein" method="post">
+                    <input type="submit" value="Time in"></inpit>
                 </form>
+            <% } %>
 
-                <% if (isTimedIn==false) { %>
-                    <form action="/api/timein" method="post">
-                        <input type="submit" value="Time in"></inpit>
-                    </form>
-                    <% } %>
-
-                        <% if (isTimedIn==true) { %>
-                            <form action="/api/timeout" method="post">
-                                <input type="submit" value="Time out"></inpit>
-                            </form>
-                            <% } %>
-            </div>
-        </main>
+            <% if (isTimedIn==true) { %>
+                <form action="/api/timeout" method="post">
+                    <input type="submit" value="Time out"></inpit>
+                </form>
+            <% } %>
+        </div>
+    </main>
 </body>
 
 </html>

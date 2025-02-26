@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { genSalt, hash } from "bcrypt";
 import {
 	Person,
 	registerNewUser,

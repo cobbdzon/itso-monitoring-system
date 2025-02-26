@@ -24,6 +24,7 @@ router.get("/", checkAuthentication, async (req, res, next) => {
 	var userStatus = isTimedIn ? "Timed In" : "Timed Out";
 	res.render("index", {
 		navLocation: "home",
+		profileName: req.user.username,
 		username: req.user.username,
 		userStatus: userStatus,
 		isTimedIn: isTimedIn,
@@ -32,23 +33,48 @@ router.get("/", checkAuthentication, async (req, res, next) => {
 });
 
 router.get("/register", (req, res, next) => {
-	res.render("register", {
-		navLocation: "register",
-	});
+	const user = req.user;
+	if (user) {
+		res.redirect("/");
+	} else {
+		res.render("register", {
+			navLocation: "register",
+			profileName: "",
+		});
+	}
 });
 
 router.get("/login", (req, res, next) => {
-	Person.findAll().then((data) => {
-		var users = [];
-		for (let i = 0; i < data.length; i++) {
-			const person = data[i];
-			users[i] = person["dataValues"]["username"];
-		}
-		res.render("login", {
-			navLocation: "login",
-			users: users,
+	const user = req.user;
+	if (user) {
+		res.redirect("/");
+	} else {
+		Person.findAll().then((data) => {
+			var users = [];
+			for (let i = 0; i < data.length; i++) {
+				const person = data[i];
+				users[i] = person["dataValues"]["username"];
+			}
+			res.render("login", {
+				navLocation: "login",
+				profileName: "",
+				users: users,
+			});
 		});
-	});
+	}
+});
+
+router.get("/profile", (req, res, next) => {
+	const user = req.user;
+	if (user) {
+		res.render("profile", {
+			navLocation: "profile",
+			profileName: user.username,
+		});
+	} else {
+		req.flash("error", "You must log in first before viewing profile!");
+		res.redirect("/login");
+	}
 });
 
 export default router;
