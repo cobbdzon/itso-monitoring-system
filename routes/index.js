@@ -15,7 +15,10 @@ router.get("/login", (req, res, next) => {
 			const person = data[i];
 			users[i] = person["dataValues"]["username"];
 		}
-		res.render("login", { users: users });
+		res.render("login", {
+			navLocation: "login",
+			users: users,
+		});
 	});
 });
 

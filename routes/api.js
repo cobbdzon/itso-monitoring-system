@@ -5,6 +5,10 @@ import authenthicateUser from "../modules/credentials.js";
 
 var router = Router();
 
+router.get("/", (req, res) => {
+	res.send("API is up!");
+});
+
 router.post("/register", async (req, res, next) => {
 	const { username, password } = req.body;
 	try {
@@ -26,7 +30,7 @@ router.post("/register", async (req, res, next) => {
 router.post("/login", (req, res, next) => {
 	const { username, password } = req.body;
 	authenthicateUser(username)
-	res.send("got it");
+	res.redirect("/login");
 });
 
 export default router;

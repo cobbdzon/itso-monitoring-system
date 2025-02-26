@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+  color-scheme: dark;
+  box-sizing: border-box;
+  font-family: monospace;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  font-style: italic;
+  background-repeat: no-repeat;
+  background-size: cover;
+  shape-margin: 1rem;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+}
+main form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+main form header {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bolder;
+}
+main form .field {
+  display: flex;
+  flex-direction: column;
+}
+main form .field label {
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=login.css.map */

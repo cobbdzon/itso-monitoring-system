@@ -1,0 +1,76 @@
+nav {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: 3rem;
+  padding-inline: 4em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+  background-color: #112;
+  color: #fff;
+  font-family: monospace;
+  font-weight: bold;
+  text-decoration: none;
+}
+nav * {
+  color: inherit;
+  font-family: inherit;
+  text-decoration: inherit;
+}
+nav #nav-title {
+  display: flex;
+  align-items: center;
+  font-size: 2em;
+}
+nav #nav-title > div {
+  padding-inline: 0.25em;
+  border-radius: 0.25em;
+}
+nav #nav-title .title {
+  transition: background-color 250ms;
+}
+nav #nav-title .title:hover {
+  background-color: hsla(0, 100%, 100%, 0.1);
+}
+nav #nav-title .subtitle {
+  color: #bbb;
+  font-size: 0.75em;
+}
+nav #nav-links {
+  font-size: 1.4em;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 2em;
+}
+nav #nav-links div {
+  cursor: pointer;
+  transition: color 250ms;
+}
+nav #nav-links div:hover {
+  color: #FF4081;
+}
+@media screen and (max-width: 768px) {
+  nav {
+    padding-inline: 0;
+    grid-template-columns: 1fr;
+    grid-template-rows: 100% 1fr;
+    gap: 0;
+  }
+  nav #nav-title {
+    padding-inline: 1em;
+    height: 100%;
+  }
+  nav #nav-links {
+    padding-inline: 3em;
+    padding-block: 1.5em;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1em;
+    background-color: #090914;
+  }
+}
+
+/*# sourceMappingURL=nav.css.map */

@@ -1,0 +1,32 @@
+@use "./global.scss";
+
+main {
+	display: flex;
+	justify-content: center;
+    align-items: center;
+
+    height: 75vh;
+
+	form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        gap: 1em;
+
+		header {
+			text-align: center;
+
+			font-size: 2em;
+			font-weight: bolder;
+		}
+
+		.field {
+            display: flex;
+            flex-direction: column;
+            label {
+                font-weight: bold;
+            }
+		}
+	}
+}
