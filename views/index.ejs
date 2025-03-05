@@ -44,6 +44,11 @@
             </div>
         </section>
         <section id="logs">
+            <% if (Object.keys(timeLogs).length <= 0) { %>
+                <div class="empty">
+                    <span>It looks quite empty here...</span>
+                </div>
+            <% } %> 
             <% for (const [dateString, logs] of Object.entries(timeLogs)) { %>
                 <details class="log-group" open>
                     <summary>
