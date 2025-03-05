@@ -29,27 +29,50 @@ function userHistoryToGroupedTimeLogs(history) {
 // TODO: ADD ADMIN VIEW PANEL
 router.get("/", checkAuthentication, async (req, res, next) => {
 	const user = req.user;
-	const isTimedIn = await checkUserTimedIn(user);
-	const latestLog = await getLatestTimeLog(user);
+	if (user.permission_level == "member") {
+		const isTimedIn = await checkUserTimedIn(user);
+		const latestLog = await getLatestTimeLog(user);
 
-	var lastLog;
-	if (latestLog) {
-		const logDate = new Date(latestLog["time"]);
-		lastLog = `${logDate.toDateString()}, ${logDate.toLocaleTimeString()}`;
-	} else {
-		lastLog = "User has never logged yet!";
+		var lastLog;
+		if (latestLog) {
+			const logDate = new Date(latestLog["time"]);
+			lastLog = `${logDate.toDateString()}, ${logDate.toLocaleTimeString()}`;
+		} else {
+			lastLog = "User has never logged yet!";
+		}
+
+		var userStatus = isTimedIn ? "Timed In" : "Timed Out";
+		res.render("index", {
+			navLocation: "home",
+			profileName: user.username,
+			username: user.username,
+			userStatus: userStatus,
+			isTimedIn: isTimedIn,
+			lastLog: lastLog,
+			timeLogs: userHistoryToGroupedTimeLogs(user.history),
+		});
+	} else if (user.permission_level == "admin") {
+		const timedInUsers = [];
+		const users = await Person.findAll().then(async (users) => {
+			const filteredUsers = [];
+			for (let i = 0; i < users.length; i++) {
+				const user = users[i];
+				if (!user.hidden && user.permission_level == "member") {
+					filteredUsers.push(user);
+					timedInUsers[user.id] = await checkUserTimedIn(user);
+				}
+			}
+			return filteredUsers;
+		});
+
+		res.render("admin", {
+			navLocation: "admin",
+			profileName: "",
+			username: user.username,
+			users: users,
+			timedInUsers: timedInUsers,
+		});
 	}
-
-	var userStatus = isTimedIn ? "Timed In" : "Timed Out";
-	res.render("index", {
-		navLocation: "home",
-		profileName: user.username,
-		username: user.username,
-		userStatus: userStatus,
-		isTimedIn: isTimedIn,
-		lastLog: lastLog,
-		timeLogs: userHistoryToGroupedTimeLogs(user.history),
-	});
 });
 
 router.get("/register", (req, res, next) => {
@@ -100,7 +123,7 @@ router.get("/profile", (req, res, next) => {
 		res.redirect("/login");
 	}
 });
-``
+``;
 router.get("/profile/:id", async (req, res, next) => {
 	const user = req.user;
 	if (user) {

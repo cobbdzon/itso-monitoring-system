@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        CLA
+    </title>
+    <link rel='stylesheet' href='/css/admin.css' />
+</head>
+
+<body>
+    <%- include('partials/nav', {navLocation: navLocation}); %>
+    <main>
+        <section id="profile">
+            <header>
+                Welcome, <b> <%= username %> </b>
+            </header>
+            <span>
+                to the admin panel.
+            </span>
+            <div id="buttons">
+                <form action="/api/logout" method="post">
+                    <input type="submit" value="Logout"></inpit>
+                </form>
+            </div>
+        </section>
+        <section id="users">
+            <% if (Object.keys(users).length <= 0) { %>
+                <div class="empty">
+                    <span>It looks quite empty here...</span>
+                </div>
+            <% } %> 
+            <li class="indicator">
+                <div>User</div>
+                <div>Status</div>
+            </li>
+            <% users.forEach(user => { %>
+                <li class="user">
+                    <div class="username">
+                        <%= user.username %> 
+                    </div>
+                    <div class="status">
+                        <% if (timedInUsers[user.id]) { %>
+                            <div class="in">
+                                Timed In
+                            </div>
+                        <% } else { %>
+                            <div class="out">
+                                Timed Out
+                            </div>
+                        <% } %>
+                    </div>
+                    <div class="timelog">
+                        <a href="/profile/<%= user.id %> ">View Time Log</a>
+                    </div>
+                </li>
+            <% }) %>
+        </section>
+    </main>
+</body>
+
+</html>
