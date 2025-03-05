@@ -87,9 +87,13 @@ body main #logs {
   color: #f3e0bc;
 }
 body main #logs .log-group {
-  background-color: rgb(102.3544303797, 66.9240506329, 53.1455696203);
+  background-color: #f0c10c;
+}
+body main #logs .log-group:nth-child(even) {
+  background-color: rgb(243.9285714286, 200.5654761905, 33.5714285714);
 }
 body main #logs .log-group summary {
+  color: #34221b;
   padding: 1.5em;
 }
 body main #logs .log-group .log {

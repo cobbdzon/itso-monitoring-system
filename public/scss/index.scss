@@ -71,9 +71,14 @@ body {
 			color: $beige-color;
 
             .log-group {
-                background-color: color.adjust($brown-color, $lightness: 15%);
+                background-color: $yellow-color;
+
+				&:nth-child(even) {
+					background-color: color.adjust($yellow-color, $lightness: 5%);
+				}
                 
                 summary {
+					color: $brown-color;
                     padding: 1.5em;
                 }
 
