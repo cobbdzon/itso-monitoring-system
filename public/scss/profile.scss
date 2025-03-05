@@ -1,0 +1,71 @@
+@use "./global.scss" as *;
+@use "sass:color";
+
+body {
+	background-color: $beige-color;
+	main {
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
+
+		padding-top: 6em;
+		padding-inline: 25%;
+
+		height: 75vh;
+
+		> * {
+			width: 100%;
+		}
+
+		header {
+			background-color: color.adjust($brown-color, $lightness: 5%);
+
+			padding: 0.5em;
+
+			color: $yellow-color;
+			font-size: 3em;
+			font-family: "Freshman";
+			text-align: left;
+		}
+
+		#grid {
+			background-color: color.adjust($brown-color, $lightness: 10%);
+
+			flex-grow: 1;
+
+			display: flex;
+			flex-direction: column;
+
+			color: $beige-color;
+
+			.log {
+				background-color: color.adjust($brown-color, $lightness: 12.5%);
+
+				display: grid;
+				grid-template-columns: 0.25fr 0.75fr;
+
+				width: 100%;
+
+				&:nth-child(even) {
+					background-color: color.adjust($brown-color, $lightness: 15%);
+				}
+
+				div {
+					padding: 1.5em;
+				}
+
+				.log-type {
+					&[logType="in"] {
+						background-color: hsla(128, 100%, 50%, 0.25);
+					}
+					&[logType="out"] {
+						background-color: hsla(0, 100%, 50%, 0.25);
+					}
+				}
+
+				.log-time {
+				}
+			}
+		}
+	}
+}

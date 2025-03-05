@@ -1,0 +1,81 @@
+@font-face {
+  font-family: Freshman;
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  src: local("Freshman"), url(../fonts/freshman/freshman-normal.woff2) format("woff2");
+}
+* {
+  margin: 0;
+  padding: 0;
+  color-scheme: light;
+  box-sizing: border-box;
+  font-family: monospace;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  font-style: italic;
+  background-repeat: no-repeat;
+  background-size: cover;
+  shape-margin: 1rem;
+}
+
+input[type=submit] {
+  background-color: #f0c10c;
+  padding-inline: 2em;
+  border-style: solid;
+  border-color: rgb(191.4285714286, 153.9404761905, 9.5714285714);
+}
+
+body {
+  background-color: #f3e0bc;
+}
+body main {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding-top: 6em;
+  padding-inline: 25%;
+  height: 75vh;
+}
+body main > * {
+  width: 100%;
+}
+body main header {
+  background-color: rgb(68.7848101266, 44.9746835443, 35.7151898734);
+  padding: 0.5em;
+  color: #f0c10c;
+  font-size: 3em;
+  font-family: "Freshman";
+  text-align: left;
+}
+body main #grid {
+  background-color: rgb(85.5696202532, 55.9493670886, 44.4303797468);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  color: #f3e0bc;
+}
+body main #grid .log {
+  background-color: rgb(93.9620253165, 61.4367088608, 48.7879746835);
+  display: grid;
+  grid-template-columns: 0.25fr 0.75fr;
+  width: 100%;
+}
+body main #grid .log:nth-child(even) {
+  background-color: rgb(102.3544303797, 66.9240506329, 53.1455696203);
+}
+body main #grid .log div {
+  padding: 1.5em;
+}
+body main #grid .log .log-type[logType=in] {
+  background-color: hsla(128, 100%, 50%, 0.25);
+}
+body main #grid .log .log-type[logType=out] {
+  background-color: hsla(0, 100%, 50%, 0.25);
+}
+
+/*# sourceMappingURL=profile.css.map */

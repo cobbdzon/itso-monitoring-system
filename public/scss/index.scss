@@ -1,29 +1,108 @@
 @use "./global.scss" as *;
+@use "sass:color";
 
 body {
 	background-color: $beige-color;
 
 	main {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 
-        height: 75vh;
+		padding: 10em;
+		height: 50vh;
 
-        gap: 1em;
+		gap: 0;
 
-		header {
-			font-weight: bolder;
-            font-size: 3em;
-		}
-        #info {
+		color: $brown-color;
+
+		#profile {
             display: flex;
             flex-direction: column;
-        }
-        #buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-        }
+            align-items: center;
+
+			header {
+				font-weight: bolder;
+				font-size: 3em;
+				text-align: center;
+			}
+			#info {
+				display: flex;
+				flex-direction: column;
+				text-align: center;
+			}
+			#buttons {
+				display: flex;
+				justify-content: center;
+				gap: 1em;
+
+                margin-top: auto;
+
+				form {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+
+				#timein input {
+					background-color: hsla(128, 100%, 30%, 1);
+					border-color: hsla(128, 75%, 30%, 1);
+                    color: $beige-color;
+				}
+
+				#timeout input {
+					background-color: hsla(0, 100%, 30%, 1);
+					border-color: hsla(0, 75%, 30%, 1);
+                    color: $beige-color;
+				}
+			}
+		}
+
+		#logs {
+			background-color: color.adjust($brown-color, $lightness: 10%);
+
+			flex-grow: 1;
+
+			display: flex;
+			flex-direction: column;
+
+			height: 48vh;
+			overflow-y: scroll;
+
+			color: $beige-color;
+
+            .log-group {
+                background-color: color.adjust($brown-color, $lightness: 15%);
+                
+                summary {
+                    padding: 1.5em;
+                }
+
+                .log {
+                    background-color: color.adjust($brown-color, $lightness: 12.5%);
+    
+                    display: grid;
+                    grid-template-columns: 0.25fr 0.75fr;
+    
+                    width: 100%;
+    
+                    &:nth-child(even) {
+                        background-color: color.adjust($brown-color, $lightness: 15%);
+                    }
+    
+                    div {
+                        padding: 1.5em;
+                    }
+    
+                    .log-type {
+                        &[logType="in"] {
+                            background-color: hsla(128, 100%, 50%, 0.25);
+                        }
+                        &[logType="out"] {
+                            background-color: hsla(0, 100%, 50%, 0.25);
+                        }
+                    }
+                }
+            }
+		}
 	}
 }

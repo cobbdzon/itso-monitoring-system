@@ -34,24 +34,81 @@ body {
   background-color: #f3e0bc;
 }
 body main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 75vh;
-  gap: 1em;
-}
-body main header {
-  font-weight: bolder;
-  font-size: 3em;
-}
-body main #info {
-  display: flex;
-  flex-direction: column;
-}
-body main #buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  padding: 10em;
+  height: 50vh;
+  gap: 0;
+  color: #34221b;
+}
+body main #profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body main #profile header {
+  font-weight: bolder;
+  font-size: 3em;
+  text-align: center;
+}
+body main #profile #info {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+body main #profile #buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  margin-top: auto;
+}
+body main #profile #buttons form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body main #profile #buttons #timein input {
+  background-color: hsl(128, 100%, 30%);
+  border-color: hsl(128, 75%, 30%);
+  color: #f3e0bc;
+}
+body main #profile #buttons #timeout input {
+  background-color: hsl(0, 100%, 30%);
+  border-color: hsl(0, 75%, 30%);
+  color: #f3e0bc;
+}
+body main #logs {
+  background-color: rgb(85.5696202532, 55.9493670886, 44.4303797468);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  height: 48vh;
+  overflow-y: scroll;
+  color: #f3e0bc;
+}
+body main #logs .log-group {
+  background-color: rgb(102.3544303797, 66.9240506329, 53.1455696203);
+}
+body main #logs .log-group summary {
+  padding: 1.5em;
+}
+body main #logs .log-group .log {
+  background-color: rgb(93.9620253165, 61.4367088608, 48.7879746835);
+  display: grid;
+  grid-template-columns: 0.25fr 0.75fr;
+  width: 100%;
+}
+body main #logs .log-group .log:nth-child(even) {
+  background-color: rgb(102.3544303797, 66.9240506329, 53.1455696203);
+}
+body main #logs .log-group .log div {
+  padding: 1.5em;
+}
+body main #logs .log-group .log .log-type[logType=in] {
+  background-color: hsla(128, 100%, 50%, 0.25);
+}
+body main #logs .log-group .log .log-type[logType=out] {
+  background-color: hsla(0, 100%, 50%, 0.25);
 }
 
 /*# sourceMappingURL=index.css.map */

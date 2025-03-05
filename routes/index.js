@@ -10,25 +10,40 @@ var router = Router();
 
 /* GET home page. */
 router.get("/", checkAuthentication, async (req, res, next) => {
-	const isTimedIn = await checkUserTimedIn(req.user);
-	const latestLog = await getLatestTimeLog(req.user);
+	const user = req.user;
+	const isTimedIn = await checkUserTimedIn(user);
+	const latestLog = await getLatestTimeLog(user);
 
 	var lastLog;
 	if (latestLog) {
 		const logDate = new Date(latestLog["time"]);
-		lastLog = logDate.toString();
+		lastLog = `${logDate.toDateString()}, ${logDate.toLocaleTimeString()}`;
 	} else {
 		lastLog = "User has not logged yet!";
+	}
+
+	const timeLogs = {};
+	for (let i = 0; i < user.history.length; i++) {
+		const log = user.history[i];
+		const logDate = new Date(log["time"]);
+		const logDateString = logDate.toDateString();
+
+		if (!timeLogs[logDateString]) {
+			timeLogs[logDateString] = [];
+		}
+
+		timeLogs[logDateString].push(log);
 	}
 
 	var userStatus = isTimedIn ? "Timed In" : "Timed Out";
 	res.render("index", {
 		navLocation: "home",
-		profileName: req.user.username,
-		username: req.user.username,
+		profileName: user.username,
+		username: user.username,
 		userStatus: userStatus,
 		isTimedIn: isTimedIn,
 		lastLog: lastLog,
+		timeLogs: timeLogs,
 	});
 });
 
@@ -70,6 +85,7 @@ router.get("/profile", (req, res, next) => {
 		res.render("profile", {
 			navLocation: "profile",
 			profileName: user.username,
+			timeLogs: user.history,
 		});
 	} else {
 		req.flash("error", "You must log in first before viewing profile!");

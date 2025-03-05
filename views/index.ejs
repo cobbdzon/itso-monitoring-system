@@ -11,37 +11,60 @@
 <body>
     <%- include('partials/nav', {navLocation: navLocation}); %>
     <main>
-        <header>
-            Welcome, <%= username %>
-        </header>
-        <div id="info">
-            <span>
-                <b>You are currently:</b>
-                <%= userStatus %>
-            </span>
-            <span>
-                <b>Last Log time:</b>
-                <%= lastLog %>
-            </span>
-        </div>
-
-        <div id="buttons">
-            <form action="/api/logout" method="post">
-                <input type="submit" value="Logout"></inpit>
-            </form>
-
-            <% if (isTimedIn==false) { %>
-                <form action="/api/timein" method="post">
-                    <input type="submit" value="Time in"></inpit>
+        <section id="profile">
+            <header>
+                Welcome, <b> <%= username %> </b>
+            </header>
+            <div id="info">
+                <span>
+                    <b>You are currently:</b> <br>
+                    <%= userStatus %>
+                </span>
+                <span>
+                    <b>Last Log time:</b> <br>
+                    <%= lastLog %>
+                </span>
+            </div>
+            <div id="buttons">
+                <form action="/api/logout" method="post">
+                    <input type="submit" value="Logout"></inpit>
                 </form>
-            <% } %>
-
-            <% if (isTimedIn==true) { %>
-                <form action="/api/timeout" method="post">
-                    <input type="submit" value="Time out"></inpit>
-                </form>
-            <% } %>
-        </div>
+    
+                <% if (isTimedIn==false) { %>
+                    <form id="timein" action="/api/timein" method="post">
+                        <input type="submit" value="Time in"></inpit>
+                    </form>
+                <% } %>
+    
+                <% if (isTimedIn==true) { %>
+                    <form id="timeout" action="/api/timeout" method="post">
+                        <input type="submit" value="Time out"></inpit>
+                    </form>
+                <% } %>
+            </div>
+        </section>
+        <section id="logs">
+            <% for (const [dateString, logs] of Object.entries(timeLogs)) { %>
+                <details class="log-group" open>
+                    <summary>
+                        <%= dateString %> 
+                    </summary>
+                    <ul>
+                        <% logs.forEach(log => { %>
+                            <li class="log">
+                                <div class="log-type" logType="<%= log.type.toLowerCase() %>"">
+                                    <%= log.type.toUpperCase() %>
+                                </div>
+                                <div class="log-time">
+                                    <% const logDate = new Date(log.time) %>
+                                    <%= `${logDate.toDateString()}, ${logDate.toLocaleTimeString()}` %>
+                                </div>
+                            </li>
+                        <% }) %>
+                    </ul>
+                </details>
+            <% }; %>
+        </section>
     </main>
 </body>
 

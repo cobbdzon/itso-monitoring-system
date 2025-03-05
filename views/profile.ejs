@@ -5,11 +5,28 @@
     <title>
         Profile
     </title>
-    <link rel='stylesheet' href='/css/index.css' />
+    <link rel='stylesheet' href='/css/profile.css' />
 </head>
 
 <body>
     <%- include('partials/nav', {navLocation: navLocation}); %>
+    <main>
+        <header>
+            your TIME LOG
+        </header>
+        <div id="grid">
+            <% timeLogs.forEach(function(log){ %>
+                <div class="log">
+                    <div class="log-type" logType="<%= log.type.toLowerCase() %>"">
+                        <%= log.type.toUpperCase() %>
+                    </div>
+                    <div class="log-time">
+                        <%= new Date(log.time).toLocaleString() %>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </main>
 </body>
 
 </html>
