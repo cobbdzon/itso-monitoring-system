@@ -19,7 +19,7 @@ router.get("/", checkAuthentication, async (req, res, next) => {
 		const logDate = new Date(latestLog["time"]);
 		lastLog = `${logDate.toDateString()}, ${logDate.toLocaleTimeString()}`;
 	} else {
-		lastLog = "User has not logged yet!";
+		lastLog = "User has never logged yet!";
 	}
 
 	const timeLogs = {};
@@ -67,8 +67,11 @@ router.get("/login", (req, res, next) => {
 		Person.findAll().then((data) => {
 			var users = [];
 			for (let i = 0; i < data.length; i++) {
-				const person = data[i];
-				users[i] = person["dataValues"]["username"];
+				const user = data[i];
+				console.log(user["username"])
+				if (!user["hidden"]) {
+					users.push(user["username"]);
+				}
 			}
 			res.render("login", {
 				navLocation: "login",

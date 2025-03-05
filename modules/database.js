@@ -1,5 +1,5 @@
 import { genSalt, hash } from "bcrypt";
-import { Sequelize, DataTypes } from "sequelize";
+import { Sequelize, DataTypes, ENUM } from "sequelize";
 
 const SequelizeInstance = new Sequelize("cla-db-dev", "admin", "", {
 	host: "localhost",
@@ -12,6 +12,16 @@ const Person = SequelizeInstance.define("Person", {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
 		autoIncrement: true,
+	},
+	hidden: {
+		type: DataTypes.BOOLEAN,
+		defaultValue: false,
+		allowNull: false,
+	},
+	permission_level: {
+		type: ENUM("member", "admin"),
+		defaultValue: "member",
+		allowNull: false,
 	},
 	username: {
 		type: DataTypes.STRING,
@@ -60,6 +70,25 @@ async function registerNewUser(username, password) {
 	const pwdSalt = await genSalt(10);
 	const pwdHash = await hash(password, pwdSalt);
 	const newUser = await Person.create({
+		username: username,
+		hashed_password: pwdHash,
+		salt: pwdSalt,
+
+		lastTimeIn: 0,
+		lastTimeOut: 0,
+
+		history: [],
+	});
+	await newUser.save();
+	return newUser;
+}
+
+async function registerNewAdmin(username, password) {
+	const pwdSalt = await genSalt(10);
+	const pwdHash = await hash(password, pwdSalt);
+	const newUser = await Person.create({
+		hidden: true,
+		permission_level: "admin",
 		username: username,
 		hashed_password: pwdHash,
 		salt: pwdSalt,
@@ -131,7 +160,17 @@ async function timeOutUser(userOrUsername) {
 	return true;
 }
 
+// REGISTER DEFAULT ADMIN
+// TODO: SUPPORT CHANGING PASSWORDS FROM .env
+async function __registerDefaultAdmin() {
+	const defaultAdmin = await Person.findOne({ where: { username: "admin", permission_level: "admin" } });
+	if (!defaultAdmin) {
+		registerNewAdmin("admin", process.env.DEFAULT_ADMIN_PASSWORD)
+	}
+}
+
 SequelizeInstance.sync({ forced: true });
+__registerDefaultAdmin()
 
 export {
 	SequelizeInstance,
