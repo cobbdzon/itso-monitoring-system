@@ -133,7 +133,7 @@ router.get("/profile/:id", async (req, res, next) => {
 				res.render("profile", {
 					navLocation: "profile",
 					username: requestedUser.username + "'s",
-					profileName: requestedUser.username,
+					profileName: "",
 					timeLogs: userHistoryToGroupedTimeLogs(requestedUser.history),
 				});
 			} else {

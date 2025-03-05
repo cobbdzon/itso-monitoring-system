@@ -160,19 +160,29 @@ async function timeOutUser(userOrUsername) {
 	return true;
 }
 
+async function changeUsername(userOrUsername, newUsername) {
+	const user = await getUserOrUsername(userOrUsername);
+	if (!user) return false;
+
+	await user.update({ username: newUsername });
+	return true;
+}
+
 // REGISTER DEFAULT ADMIN
 // TODO: SUPPORT CHANGING PASSWORDS FROM .env
 async function __registerDefaultAdmin() {
-	const defaultAdmin = await Person.findOne({ where: { username: "admin", permission_level: "admin" } }).catch(err => {
-		console.error(err)
+	const defaultAdmin = await Person.findOne({
+		where: { username: "admin", permission_level: "admin" },
+	}).catch((err) => {
+		console.error(err);
 	});
 	if (!defaultAdmin) {
-		registerNewAdmin("admin", process.env.DEFAULT_ADMIN_PASSWORD)
+		registerNewAdmin("admin", process.env.DEFAULT_ADMIN_PASSWORD);
 	}
 }
 
 SequelizeInstance.sync({ forced: true });
-__registerDefaultAdmin()
+__registerDefaultAdmin();
 
 export {
 	SequelizeInstance,
@@ -184,5 +194,6 @@ export {
 	checkUserTimedIn,
 	timeInUser,
 	timeOutUser,
+	changeUsername,
 };
 export default SequelizeInstance;

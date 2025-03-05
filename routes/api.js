@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+	changeUsername,
 	Person,
 	registerNewUser,
 	timeInUser,
@@ -79,6 +80,17 @@ router.post("/timeout", async (req, res, next) => {
 		res.status(200);
 	}
 	res.redirect("/");
+});
+
+router.post("changeusername", async (req, res, next) => {
+	const user = req.user;
+	const { newUsername } = req.body;
+	if (user && user.permission_level == "admin") {
+		changeUsername(user, newUsername);
+	} else {
+		req.flash("error", "Unauthorized")
+		res.statusCode(401);
+	}
 });
 
 export default router;
