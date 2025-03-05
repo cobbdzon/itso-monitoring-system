@@ -14,10 +14,8 @@ async function authenthicateUser(username, password, done) {
 
 	try {
 		if (await compare(password, user.hashed_password)) {
-			console.log("auth success");
 			return done(null, user);
 		} else {
-			console.log("password incorrect");
 			return done(null, false, { message: "Password incorrect" });
 		}
 	} catch (err) {

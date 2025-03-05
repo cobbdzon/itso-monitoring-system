@@ -10,7 +10,6 @@ import { checkAuthentication } from "../modules/credentials.js";
 var router = Router();
 
 function userHistoryToGroupedTimeLogs(history) {
-	console.log(history);
 	const timeLogs = {};
 	for (let i = 0; i < history.length; i++) {
 		const log = history[i];
@@ -74,7 +73,6 @@ router.get("/login", (req, res, next) => {
 			var users = [];
 			for (let i = 0; i < data.length; i++) {
 				const user = data[i];
-				console.log(user["username"]);
 				if (!user["hidden"]) {
 					users.push(user["username"]);
 				}
@@ -102,14 +100,13 @@ router.get("/profile", (req, res, next) => {
 		res.redirect("/login");
 	}
 });
-
+``
 router.get("/profile/:id", async (req, res, next) => {
 	const user = req.user;
 	if (user) {
 		if (user.permission_level == "admin") {
 			const requestedUser = await getUserFromId(req.params.id);
 			if (requestedUser && !requestedUser.hidden) {
-				console.log(requestedUser);
 				res.render("profile", {
 					navLocation: "profile",
 					username: requestedUser.username + "'s",
@@ -118,7 +115,6 @@ router.get("/profile/:id", async (req, res, next) => {
 				});
 			} else {
 				req.flash("error", `User with id: ${req.params.id} not found!`);
-				res.status(404);
 				res.redirect("/");
 			}
 		} else {
@@ -126,7 +122,6 @@ router.get("/profile/:id", async (req, res, next) => {
 				"error",
 				"You do not have sufficient permission level to view this"
 			);
-			res.status(401);
 			res.redirect("/");
 		}
 	} else {

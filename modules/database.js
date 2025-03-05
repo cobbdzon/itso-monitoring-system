@@ -163,7 +163,9 @@ async function timeOutUser(userOrUsername) {
 // REGISTER DEFAULT ADMIN
 // TODO: SUPPORT CHANGING PASSWORDS FROM .env
 async function __registerDefaultAdmin() {
-	const defaultAdmin = await Person.findOne({ where: { username: "admin", permission_level: "admin" } });
+	const defaultAdmin = await Person.findOne({ where: { username: "admin", permission_level: "admin" } }).catch(err => {
+		console.error(err)
+	});
 	if (!defaultAdmin) {
 		registerNewAdmin("admin", process.env.DEFAULT_ADMIN_PASSWORD)
 	}

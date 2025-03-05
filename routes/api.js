@@ -31,7 +31,6 @@ router.post("/register", async (req, res, next) => {
 	}
 
 	const existingUser = await getUserFromUsername(username);
-	console.log(existingUser);
 	if (existingUser != null) {
 		req.flash("error", "User " + username + " already exists!");
 		res.status(409);
@@ -69,7 +68,6 @@ router.post("/logout", (req, res, next) => {
 router.post("/timein", async (req, res, next) => {
 	const user = req.user;
 	if (await timeInUser(user)) {
-		console.log("Timed in");
 		res.status(200);
 	}
 	res.redirect("/");
@@ -78,7 +76,6 @@ router.post("/timein", async (req, res, next) => {
 router.post("/timeout", async (req, res, next) => {
 	const user = req.user;
 	if (await timeOutUser(user)) {
-		console.log("Timed out");
 		res.status(200);
 	}
 	res.redirect("/");
