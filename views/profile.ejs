@@ -12,20 +12,35 @@
     <%- include('partials/nav', {navLocation: navLocation}); %>
     <main>
         <header>
-            your TIME LOG
+            <%= username %> TIME LOG 
         </header>
-        <div id="grid">
-            <% timeLogs.forEach(function(log){ %>
-                <div class="log">
-                    <div class="log-type" logType="<%= log.type.toLowerCase() %>"">
-                        <%= log.type.toUpperCase() %>
-                    </div>
-                    <div class="log-time">
-                        <%= new Date(log.time).toLocaleString() %>
-                    </div>
+        <section id="logs">
+            <% if (Object.keys(timeLogs).length <= 0) { %>
+                <div class="empty">
+                    <span>It looks quite empty here...</span>
                 </div>
-            <% }); %>
-        </div>
+            <% } %> 
+            <% for (const [dateString, logs] of Object.entries(timeLogs)) { %>
+                <details class="log-group" open>
+                    <summary>
+                        <%= dateString %> 
+                    </summary>
+                    <ul>
+                        <% logs.forEach(log => { %>
+                            <li class="log">
+                                <div class="log-type" logType="<%= log.type.toLowerCase() %>"">
+                                    <%= log.type.toUpperCase() %>
+                                </div>
+                                <div class="log-time">
+                                    <% const logDate = new Date(log.time) %>
+                                    <%= `${logDate.toDateString()}, ${logDate.toLocaleTimeString()}` %>
+                                </div>
+                            </li>
+                        <% }) %>
+                    </ul>
+                </details>
+            <% }; %>
+        </section>
     </main>
 </body>
 

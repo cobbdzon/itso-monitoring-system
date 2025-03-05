@@ -2,13 +2,32 @@ import { Router } from "express";
 import {
 	checkUserTimedIn,
 	getLatestTimeLog,
+	getUserFromId,
 	Person,
 } from "../modules/database.js";
 import { checkAuthentication } from "../modules/credentials.js";
 
 var router = Router();
 
+function userHistoryToGroupedTimeLogs(history) {
+	console.log(history);
+	const timeLogs = {};
+	for (let i = 0; i < history.length; i++) {
+		const log = history[i];
+		const logDate = new Date(log["time"]);
+		const logDateString = logDate.toDateString();
+
+		if (!timeLogs[logDateString]) {
+			timeLogs[logDateString] = [];
+		}
+
+		timeLogs[logDateString].push(log);
+	}
+	return timeLogs;
+}
+
 /* GET home page. */
+// TODO: ADD ADMIN VIEW PANEL
 router.get("/", checkAuthentication, async (req, res, next) => {
 	const user = req.user;
 	const isTimedIn = await checkUserTimedIn(user);
@@ -22,19 +41,6 @@ router.get("/", checkAuthentication, async (req, res, next) => {
 		lastLog = "User has never logged yet!";
 	}
 
-	const timeLogs = {};
-	for (let i = 0; i < user.history.length; i++) {
-		const log = user.history[i];
-		const logDate = new Date(log["time"]);
-		const logDateString = logDate.toDateString();
-
-		if (!timeLogs[logDateString]) {
-			timeLogs[logDateString] = [];
-		}
-
-		timeLogs[logDateString].push(log);
-	}
-
 	var userStatus = isTimedIn ? "Timed In" : "Timed Out";
 	res.render("index", {
 		navLocation: "home",
@@ -43,7 +49,7 @@ router.get("/", checkAuthentication, async (req, res, next) => {
 		userStatus: userStatus,
 		isTimedIn: isTimedIn,
 		lastLog: lastLog,
-		timeLogs: timeLogs,
+		timeLogs: userHistoryToGroupedTimeLogs(user.history),
 	});
 });
 
@@ -68,7 +74,7 @@ router.get("/login", (req, res, next) => {
 			var users = [];
 			for (let i = 0; i < data.length; i++) {
 				const user = data[i];
-				console.log(user["username"])
+				console.log(user["username"]);
 				if (!user["hidden"]) {
 					users.push(user["username"]);
 				}
@@ -87,11 +93,44 @@ router.get("/profile", (req, res, next) => {
 	if (user) {
 		res.render("profile", {
 			navLocation: "profile",
+			username: user.username + "'s",
 			profileName: user.username,
-			timeLogs: user.history,
+			timeLogs: userHistoryToGroupedTimeLogs(user.history),
 		});
 	} else {
 		req.flash("error", "You must log in first before viewing profile!");
+		res.redirect("/login");
+	}
+});
+
+router.get("/profile/:id", async (req, res, next) => {
+	const user = req.user;
+	if (user) {
+		if (user.permission_level == "admin") {
+			const requestedUser = await getUserFromId(req.params.id);
+			if (requestedUser && !requestedUser.hidden) {
+				console.log(requestedUser);
+				res.render("profile", {
+					navLocation: "profile",
+					username: requestedUser.username + "'s",
+					profileName: requestedUser.username,
+					timeLogs: userHistoryToGroupedTimeLogs(requestedUser.history),
+				});
+			} else {
+				req.flash("error", `User with id: ${req.params.id} not found!`);
+				res.status(404);
+				res.redirect("/");
+			}
+		} else {
+			req.flash(
+				"error",
+				"You do not have sufficient permission level to view this"
+			);
+			res.status(401);
+			res.redirect("/");
+		}
+	} else {
+		req.flash("error", "Please log in first!");
 		res.redirect("/login");
 	}
 });
