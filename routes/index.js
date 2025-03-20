@@ -109,13 +109,16 @@ router.get("/login", (req, res, next) => {
 	}
 });
 
-router.get("/profile", (req, res, next) => {
+router.get("/profile", async (req, res, next) => {
 	const user = req.user;
 	if (user) {
+		const isTimedIn = await checkUserTimedIn(user);
 		res.render("profile", {
 			navLocation: "profile",
 			username: user.username + "'s",
 			profileName: user.username,
+			userId: user.id,
+			isTimedIn: isTimedIn,
 			timeLogs: userHistoryToGroupedTimeLogs(user.history),
 		});
 	} else {
@@ -134,6 +137,8 @@ router.get("/profile/:id", async (req, res, next) => {
 					navLocation: "profile",
 					username: requestedUser.username + "'s",
 					profileName: "",
+					userId: req.params.id,
+					isTimedIn: await checkUserTimedIn(requestedUser),
 					timeLogs: userHistoryToGroupedTimeLogs(requestedUser.history),
 				});
 			} else {

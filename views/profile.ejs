@@ -41,6 +41,18 @@
                 </details>
             <% }; %>
         </section>
+        <section id="buttons">
+            <% if (isTimedIn==false) { %>
+                <form id="timein" action="/api/timein/<%= userId %> " method="post">
+                    <input type="submit" value="Time in">
+                </form>
+            <% } %>
+            <% if (isTimedIn==true) { %>
+                <form id="timeout" action="/api/timeout/<%= userId %>" method="post">
+                    <input type="submit" value="Time out">
+                </form>
+            <% } %>
+        </section>
     </main>
 </body>
 

@@ -97,5 +97,26 @@ body main #logs .log-group .log .log-type[logType=in] {
 body main #logs .log-group .log .log-type[logType=out] {
   background-color: hsla(0, 100%, 50%, 0.25);
 }
+body main #buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  margin-top: auto;
+}
+body main #buttons form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body main #buttons #timein input {
+  background-color: hsl(128, 100%, 30%);
+  border-color: hsl(128, 75%, 30%);
+  color: #f3e0bc;
+}
+body main #buttons #timeout input {
+  background-color: hsl(0, 100%, 30%);
+  border-color: hsl(0, 75%, 30%);
+  color: #f3e0bc;
+}
 
 /*# sourceMappingURL=profile.css.map */

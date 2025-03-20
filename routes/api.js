@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
 	changeUsername,
+	getUserFromId,
 	Person,
 	registerNewUser,
 	timeInUser,
@@ -66,12 +67,13 @@ router.post("/logout", (req, res, next) => {
 	});
 });
 
+// user
 router.post("/timein", async (req, res, next) => {
 	const user = req.user;
 	if (await timeInUser(user)) {
 		res.status(200);
 	}
-	res.redirect("/");
+	res.redirect("back");
 });
 
 router.post("/timeout", async (req, res, next) => {
@@ -79,7 +81,62 @@ router.post("/timeout", async (req, res, next) => {
 	if (await timeOutUser(user)) {
 		res.status(200);
 	}
-	res.redirect("/");
+	res.redirect("back");
+});
+
+// admin
+router.post("/timein/:id", async (req, res, next) => {
+	const user = req.user;
+	if (user) {
+		if (user.permission_level == "admin") {
+			const requestedUser = await getUserFromId(req.params.id);
+			if (requestedUser && !requestedUser.hidden) {
+				if (await timeInUser(requestedUser)) {
+					res.status(200);
+				}
+				res.redirect("back");
+			} else {
+				req.flash("error", `User with id: ${req.params.id} not found!`);
+				res.redirect("/");
+			}
+		} else {
+			req.flash(
+				"error",
+				"You do not have sufficient permission level to view this"
+			);
+			res.redirect("/");
+		}
+	} else {
+		req.flash("error", "Please log in first!");
+		res.redirect("/login");
+	}
+});
+
+router.post("/timeout/:id", async (req, res, next) => {
+	const user = req.user;
+	if (user) {
+		if (user.permission_level == "admin") {
+			const requestedUser = await getUserFromId(req.params.id);
+			if (requestedUser && !requestedUser.hidden) {
+				if (await timeOutUser(requestedUser)) {
+					res.status(200);
+				}
+				res.redirect("back");
+			} else {
+				req.flash("error", `User with id: ${req.params.id} not found!`);
+				res.redirect("/");
+			}
+		} else {
+			req.flash(
+				"error",
+				"You do not have sufficient permission level to view this"
+			);
+			res.redirect("/");
+		}
+	} else {
+		req.flash("error", "Please log in first!");
+		res.redirect("/login");
+	}
 });
 
 router.post("changeusername", async (req, res, next) => {
@@ -88,7 +145,7 @@ router.post("changeusername", async (req, res, next) => {
 	if (user && user.permission_level == "admin") {
 		changeUsername(user, newUsername);
 	} else {
-		req.flash("error", "Unauthorized")
+		req.flash("error", "Unauthorized");
 		res.statusCode(401);
 	}
 });
