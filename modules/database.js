@@ -1,11 +1,24 @@
 import { genSalt, hash } from "bcrypt";
 import { Sequelize, DataTypes, ENUM } from "sequelize";
 
-const SequelizeInstance = new Sequelize("cla-db-dev", "admin", "", {
-	host: "localhost",
-	dialect: "postgresql",
-	logging: false,
-});
+const DATABASE_NAME = process.env.DATABASE_NAME || "cla-db-dev";
+const DATABASE_USER = process.env.DATABASE_USER || "admin";
+const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD || "";
+
+const DATABASE_HOST = process.env.DATABASE_HOST || "localhost";
+const DATABASE_PORT = process.env.DATABASE_PORT || 5432;
+
+const SequelizeInstance = new Sequelize(
+	DATABASE_NAME,
+	DATABASE_USER,
+	DATABASE_PASSWORD,
+	{
+		host: DATABASE_HOST,
+		port: DATABASE_PORT,
+		dialect: "postgresql",
+		logging: false,
+	}
+);
 
 const Person = SequelizeInstance.define("Person", {
 	id: {
