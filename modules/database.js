@@ -99,43 +99,6 @@ async function registerNewUser(username, password) {
 	return newUser;
 }
 
-async function updateDefaultAdmin(defaultAdmin, password) {
-	const pwdSalt = await genSalt(10);
-	const pwdHash = await hash(password, pwdSalt);
-	await defaultAdmin.update({
-		hidden: true,
-		permission_level: "admin",
-		username: "admin",
-		hashed_password: pwdHash,
-		salt: pwdSalt,
-
-		lastTimeIn: 0,
-		lastTimeOut: 0,
-
-		history: [],
-	});
-	return defaultAdmin;
-}
-
-async function registerNewAdmin(username, password) {
-	const pwdSalt = await genSalt(10);
-	const pwdHash = await hash(password, pwdSalt);
-	const newAdmin = await Person.create({
-		hidden: true,
-		permission_level: "admin",
-		username: username,
-		hashed_password: pwdHash,
-		salt: pwdSalt,
-
-		lastTimeIn: 0,
-		lastTimeOut: 0,
-
-		history: [],
-	});
-	await newAdmin.save();
-	return newAdmin;
-}
-
 // TIME IN TIME OUT
 async function getHistoryLength(history) {
 	return Object.keys(history).length;
@@ -205,22 +168,30 @@ async function changeUsername(userOrUsername, newUsername) {
 // REGISTER DEFAULT ADMIN
 // TODO: SUPPORT CHANGING PASSWORDS FROM .env
 async function __registerDefaultAdmin() {
+	const pwdSalt = genSaltSync(10);
+	const pwdHash = hashSync(process.env.DEFAULT_ADMIN_PASSWORD, pwdSalt);
 	const [defaultAdmin, created] = await Person.findOrCreate({
 		where: { username: "admin", permission_level: "admin" },
+		defaults: {
+			hidden: true,
+			permission_level: "admin",
+			username: "admin",
+			hashed_password: pwdHash,
+			salt: pwdSalt,
+
+			lastTimeIn: 0,
+			lastTimeOut: 0,
+
+			history: [],
+		},
 	}).catch((err) => {
 		console.error(err);
 	});
-	if (created) {
-		updateDefaultAdmin(defaultAdmin, process.env.DEFAULT_ADMIN_PASSWORD);
-	} else {
-		const password_salt = genSaltSync(10);
-		const password_hash = hashSync(
-			process.env.DEFAULT_ADMIN_PASSWORD,
-			password_salt
-		);
-		if (password_hash != defaultAdmin.hashed_password) {
-			updateDefaultAdmin(defaultAdmin, process.env.DEFAULT_ADMIN_PASSWORD);
-		}
+	if (created == false && pwdHash != defaultAdmin.hashed_password) {
+		defaultAdmin.update({
+			hashed_password: pwdHash,
+			salt: pwdSalt,
+		});
 	}
 }
 
