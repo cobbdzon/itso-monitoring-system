@@ -128,4 +128,11 @@ body main > div #buttons #timeout input {
   color: #f3e0bc;
 }
 
+#flash .error {
+  color: red;
+}
+#flash .success {
+  color: green;
+}
+
 /*# sourceMappingURL=index.css.map */

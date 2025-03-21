@@ -37,6 +37,13 @@ router.get("/", checkAuthentication, async (req, res, next) => {
 		if (latestLog) {
 			const logDate = new Date(latestLog["time"]);
 			lastLog = `${logDate.toDateString()}, ${logDate.toLocaleTimeString()}`;
+
+			// check if missed
+			const todayDate = new Date();
+			console.log(todayDate.getDate(), logDate.getDate())
+			if (isTimedIn && todayDate.getDate() != logDate.getDate()) {
+				req.flash("error", "You failed to time out yesterday! Please time out and time in to refresh your log.")
+			}
 		} else {
 			lastLog = "User has never logged yet!";
 		}

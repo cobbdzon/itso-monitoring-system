@@ -30,6 +30,9 @@
                         <%= lastLog %>
                     </span>
                 </div>
+                <div id="flash">
+                    <%- include('partials/flash', {messages: messages}); %>
+                </div>
             </section>
         </div>
         <div>   
