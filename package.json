@@ -26,6 +26,7 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pg": "^8.13.3",
+    "sass": "^1.86.0",
     "sequelize": "^6.37.5"
   },
   "devDependencies": {
