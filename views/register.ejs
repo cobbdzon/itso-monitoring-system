@@ -11,34 +11,34 @@
 <body>
     <%- include('partials/nav', {navLocation: navLocation}); %>
     <main>
-        <form id="login-form" action="/api/register" method="post">
-            <header>
-                CREATE A NEW CLA ACCOUNT
-            </header>
-            <div id="error-flash">
-                <% if (messages && messages.error) { %>
-                    <%- messages.error  %>
-                <% } %>
-            </div>
-            <div class="field">
-                <label for="username">CLA FULL NAME:</label>
-                <input id="username" name="username" type="text" autocomplete="off">
-            </div>
-            <div class="field">
-                <label for="password">PASSWORD:</label>
-                <input id="password" name="password" type="password" autocomplete="off">
-            </div>
-            <div class="field">
-                <label for="confirm-Password">CONFIRM PASSWORD:</label>
-                <input id="confirm-Password" name="confirmPassword" type="password" autocomplete="off">
-            </div>
-            <div class="submit">
-                <input id="submit" type="submit" value="REGISTER">
-            </div>
-            <div class="text">
-                Already have an account? <a href="/login">Log in</a>
-            </div>
-        </form>
+        <div id="form-container">
+            <form id="login-form" action="/api/register" method="post">
+                <header>
+                    CREATE A NEW CLA ACCOUNT
+                </header>
+                <div id="flash">
+                    <%- include('partials/flash', {messages: messages}); %>
+                </div>
+                <div class="field">
+                    <label for="username">CLA FULL NAME:</label>
+                    <input id="username" name="username" type="text" autocomplete="off">
+                </div>
+                <div class="field">
+                    <label for="password">PASSWORD:</label>
+                    <input id="password" name="password" type="password" autocomplete="off">
+                </div>
+                <div class="field">
+                    <label for="confirm-Password">CONFIRM PASSWORD:</label>
+                    <input id="confirm-Password" name="confirmPassword" type="password" autocomplete="off">
+                </div>
+                <div class="submit">
+                    <input id="submit" type="submit" value="REGISTER">
+                </div>
+                <div class="text">
+                    Already have an account? <a href="/login">Log in</a>
+                </div>
+            </form>
+        </div>
     </main>
 </body>
 

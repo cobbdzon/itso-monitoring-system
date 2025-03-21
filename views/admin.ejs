@@ -13,7 +13,7 @@
     <main>
         <section id="profile">
             <header>
-                Welcome <br> 
+                Welcome<br> 
                 <b> <%= username %> </b>
             </header>
             <span>
@@ -34,6 +34,7 @@
             <li class="indicator">
                 <div>User</div>
                 <div>Status</div>
+                <div>Last Log</div>
             </li>
             <% users.forEach(user => { %>
                 <li class="user">
@@ -51,8 +52,12 @@
                             </div>
                         <% } %>
                     </div>
+                    <div class="last-log">
+                        <% const logDate = new Date(user.history[0].time) %>
+                        <%= `${logDate.toDateString()}, ${logDate.toLocaleTimeString()}` %>
+                    </div>
                     <div class="timelog">
-                        <a href="/profile/<%= user.id %> ">View Time Log</a>
+                        <a href="/profile/<%= user.id %> ">View Profile</a>
                     </div>
                 </li>
             <% }) %>

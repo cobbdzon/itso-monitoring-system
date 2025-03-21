@@ -87,7 +87,7 @@ body main #users .empty {
 body main #users li {
   background-color: rgb(93.9620253165, 61.4367088608, 48.7879746835);
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   width: 100%;
 }
 body main #users li:nth-child(even) {
