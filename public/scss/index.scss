@@ -15,21 +15,91 @@ body {
 
 		color: $brown-color;
 
-		#profile {
+		> div {
 			display: flex;
 			flex-direction: column;
-			align-items: center;
+			gap: 1em;
 
-			header {
-				font-weight: bolder;
-				font-size: 3em;
-				text-align: center;
-			}
-			#info {
+			#profile {
 				display: flex;
 				flex-direction: column;
-				text-align: center;
+				align-items: center;
+
+				header {
+					font-weight: bolder;
+					font-size: 3em;
+					text-align: center;
+				}
+				#info {
+					display: flex;
+					flex-direction: column;
+					text-align: center;
+				}
 			}
+
+			#logs {
+				background-color: color.adjust($brown-color, $lightness: 10%);
+				border: 4px solid $brown-color;
+
+				flex-grow: 1;
+
+				display: flex;
+				flex-direction: column;
+
+				height: 48vh;
+				overflow-y: scroll;
+
+				color: $beige-color;
+
+				.empty {
+					width: 100%;
+					height: 100%;
+
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+
+				.log-group {
+					background-color: $yellow-color;
+
+					&:nth-child(even) {
+						background-color: color.adjust($yellow-color, $lightness: 5%);
+					}
+
+					summary {
+						color: $brown-color;
+						padding: 1.5em;
+					}
+
+					.log {
+						background-color: color.adjust($brown-color, $lightness: 12.5%);
+
+						display: grid;
+						grid-template-columns: 0.25fr 0.75fr;
+
+						width: 100%;
+
+						&:nth-child(even) {
+							background-color: color.adjust($brown-color, $lightness: 15%);
+						}
+
+						div {
+							padding: 1.5em;
+						}
+
+						.log-type {
+							&[logType="in"] {
+								background-color: hsla(128, 100%, 50%, 0.25);
+							}
+							&[logType="out"] {
+								background-color: hsla(0, 100%, 50%, 0.25);
+							}
+						}
+					}
+				}
+			}
+
 			#buttons {
 				display: flex;
 				justify-content: center;
@@ -53,69 +123,6 @@ body {
 					background-color: hsla(0, 100%, 30%, 1);
 					border-color: hsla(0, 75%, 30%, 1);
 					color: $beige-color;
-				}
-			}
-		}
-
-		#logs {
-			background-color: color.adjust($brown-color, $lightness: 10%);
-			border: 4px solid $brown-color;
-
-			flex-grow: 1;
-
-			display: flex;
-			flex-direction: column;
-
-			height: 48vh;
-			overflow-y: scroll;
-
-			color: $beige-color;
-
-			.empty {
-				width: 100%;
-				height: 100%;
-
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-
-			.log-group {
-				background-color: $yellow-color;
-
-				&:nth-child(even) {
-					background-color: color.adjust($yellow-color, $lightness: 5%);
-				}
-
-				summary {
-					color: $brown-color;
-					padding: 1.5em;
-				}
-
-				.log {
-					background-color: color.adjust($brown-color, $lightness: 12.5%);
-
-					display: grid;
-					grid-template-columns: 0.25fr 0.75fr;
-
-					width: 100%;
-
-					&:nth-child(even) {
-						background-color: color.adjust($brown-color, $lightness: 15%);
-					}
-
-					div {
-						padding: 1.5em;
-					}
-
-					.log-type {
-						&[logType="in"] {
-							background-color: hsla(128, 100%, 50%, 0.25);
-						}
-						&[logType="out"] {
-							background-color: hsla(0, 100%, 50%, 0.25);
-						}
-					}
 				}
 			}
 		}

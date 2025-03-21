@@ -41,43 +41,27 @@ body main {
   gap: 0;
   color: #34221b;
 }
-body main #profile {
+body main > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+body main > div #profile {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-body main #profile header {
+body main > div #profile header {
   font-weight: bolder;
   font-size: 3em;
   text-align: center;
 }
-body main #profile #info {
+body main > div #profile #info {
   display: flex;
   flex-direction: column;
   text-align: center;
 }
-body main #profile #buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1em;
-  margin-top: auto;
-}
-body main #profile #buttons form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-body main #profile #buttons #timein input {
-  background-color: hsl(128, 100%, 30%);
-  border-color: hsl(128, 75%, 30%);
-  color: #f3e0bc;
-}
-body main #profile #buttons #timeout input {
-  background-color: hsl(0, 100%, 30%);
-  border-color: hsl(0, 75%, 30%);
-  color: #f3e0bc;
-}
-body main #logs {
+body main > div #logs {
   background-color: rgb(85.5696202532, 55.9493670886, 44.4303797468);
   border: 4px solid #34221b;
   flex-grow: 1;
@@ -87,40 +71,61 @@ body main #logs {
   overflow-y: scroll;
   color: #f3e0bc;
 }
-body main #logs .empty {
+body main > div #logs .empty {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-body main #logs .log-group {
+body main > div #logs .log-group {
   background-color: #f0c10c;
 }
-body main #logs .log-group:nth-child(even) {
+body main > div #logs .log-group:nth-child(even) {
   background-color: rgb(243.9285714286, 200.5654761905, 33.5714285714);
 }
-body main #logs .log-group summary {
+body main > div #logs .log-group summary {
   color: #34221b;
   padding: 1.5em;
 }
-body main #logs .log-group .log {
+body main > div #logs .log-group .log {
   background-color: rgb(93.9620253165, 61.4367088608, 48.7879746835);
   display: grid;
   grid-template-columns: 0.25fr 0.75fr;
   width: 100%;
 }
-body main #logs .log-group .log:nth-child(even) {
+body main > div #logs .log-group .log:nth-child(even) {
   background-color: rgb(102.3544303797, 66.9240506329, 53.1455696203);
 }
-body main #logs .log-group .log div {
+body main > div #logs .log-group .log div {
   padding: 1.5em;
 }
-body main #logs .log-group .log .log-type[logType=in] {
+body main > div #logs .log-group .log .log-type[logType=in] {
   background-color: hsla(128, 100%, 50%, 0.25);
 }
-body main #logs .log-group .log .log-type[logType=out] {
+body main > div #logs .log-group .log .log-type[logType=out] {
   background-color: hsla(0, 100%, 50%, 0.25);
+}
+body main > div #buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  margin-top: auto;
+}
+body main > div #buttons form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body main > div #buttons #timein input {
+  background-color: hsl(128, 100%, 30%);
+  border-color: hsl(128, 75%, 30%);
+  color: #f3e0bc;
+}
+body main > div #buttons #timeout input {
+  background-color: hsl(0, 100%, 30%);
+  border-color: hsl(0, 75%, 30%);
+  color: #f3e0bc;
 }
 
 /*# sourceMappingURL=index.css.map */

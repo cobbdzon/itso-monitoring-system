@@ -11,25 +11,56 @@
 <body>
     <%- include('partials/nav', {navLocation: navLocation}); %>
     <main>
-        <section id="profile">
-            <header>
-                Welcome, <b> <%= username %> </b>
-            </header>
-            <div id="info">
-                <span>
-                    <a href="/profile">View Profile</a>
-                    <br> <br>
-                </span>
-                <span>
-                    <b>You are currently:</b> <br>
-                    <%= userStatus %>
-                </span>
-                <span>
-                    <b>Last Log time:</b> <br>
-                    <%= lastLog %>
-                </span>
-            </div>
-            <div id="buttons">
+        <div>
+            <section id="profile">
+                <header>
+                    Welcome, <b> <%= username %> </b>
+                </header>
+                <div id="info">
+                    <span>
+                        <a href="/profile">View Profile</a>
+                        <br> <br>
+                    </span>
+                    <span>
+                        <b>You are currently:</b> <br>
+                        <%= userStatus %>
+                    </span>
+                    <span>
+                        <b>Last Log time:</b> <br>
+                        <%= lastLog %>
+                    </span>
+                </div>
+            </section>
+        </div>
+        <div>   
+            <section id="logs">
+                <% if (Object.keys(timeLogs).length <= 0) { %>
+                    <div class="empty">
+                        <span>It looks quite empty here...</span>
+                    </div>
+                <% } %> 
+                <% for (const [dateString, logs] of Object.entries(timeLogs)) { %>
+                    <details class="log-group" open>
+                        <summary>
+                            <%= dateString %> 
+                        </summary>
+                        <ul>
+                            <% logs.forEach(log => { %>
+                                <li class="log">
+                                    <div class="log-type" logType="<%= log.type.toLowerCase() %>"">
+                                        <%= log.type.toUpperCase() %>
+                                    </div>
+                                    <div class="log-time">
+                                        <% const logDate = new Date(log.time) %>
+                                        <%= `${logDate.toDateString()}, ${logDate.toLocaleTimeString()}` %>
+                                    </div>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </details>
+                <% }; %>
+            </section>
+            <section id="buttons">
                 <form action="/api/logout" method="post">
                     <input type="submit" value="Logout">
                 </form>
@@ -45,35 +76,8 @@
                         <input type="submit" value="Time out">
                     </form>
                 <% } %>
-            </div>
-        </section>
-        <section id="logs">
-            <% if (Object.keys(timeLogs).length <= 0) { %>
-                <div class="empty">
-                    <span>It looks quite empty here...</span>
-                </div>
-            <% } %> 
-            <% for (const [dateString, logs] of Object.entries(timeLogs)) { %>
-                <details class="log-group" open>
-                    <summary>
-                        <%= dateString %> 
-                    </summary>
-                    <ul>
-                        <% logs.forEach(log => { %>
-                            <li class="log">
-                                <div class="log-type" logType="<%= log.type.toLowerCase() %>"">
-                                    <%= log.type.toUpperCase() %>
-                                </div>
-                                <div class="log-time">
-                                    <% const logDate = new Date(log.time) %>
-                                    <%= `${logDate.toDateString()}, ${logDate.toLocaleTimeString()}` %>
-                                </div>
-                            </li>
-                        <% }) %>
-                    </ul>
-                </details>
-            <% }; %>
-        </section>
+            </section>
+        </div>
     </main>
 </body>
 
