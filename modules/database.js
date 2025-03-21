@@ -1,5 +1,8 @@
-import { genSalt, hash } from "bcrypt";
+import { genSalt, genSaltSync, hash, hashSync } from "bcrypt";
 import { Sequelize, DataTypes, ENUM } from "sequelize";
+import { configDotenv } from "dotenv";
+
+configDotenv();
 
 const DATABASE_NAME = process.env.DATABASE_NAME || "cla-db-dev";
 const DATABASE_USER = process.env.DATABASE_USER || "admin";
@@ -96,10 +99,28 @@ async function registerNewUser(username, password) {
 	return newUser;
 }
 
+async function updateDefaultAdmin(defaultAdmin, password) {
+	const pwdSalt = await genSalt(10);
+	const pwdHash = await hash(password, pwdSalt);
+	await defaultAdmin.update({
+		hidden: true,
+		permission_level: "admin",
+		username: "admin",
+		hashed_password: pwdHash,
+		salt: pwdSalt,
+
+		lastTimeIn: 0,
+		lastTimeOut: 0,
+
+		history: [],
+	});
+	return defaultAdmin;
+}
+
 async function registerNewAdmin(username, password) {
 	const pwdSalt = await genSalt(10);
 	const pwdHash = await hash(password, pwdSalt);
-	const newUser = await Person.create({
+	const newAdmin = await Person.create({
 		hidden: true,
 		permission_level: "admin",
 		username: username,
@@ -111,8 +132,8 @@ async function registerNewAdmin(username, password) {
 
 		history: [],
 	});
-	await newUser.save();
-	return newUser;
+	await newAdmin.save();
+	return newAdmin;
 }
 
 // TIME IN TIME OUT
@@ -184,13 +205,22 @@ async function changeUsername(userOrUsername, newUsername) {
 // REGISTER DEFAULT ADMIN
 // TODO: SUPPORT CHANGING PASSWORDS FROM .env
 async function __registerDefaultAdmin() {
-	const defaultAdmin = await Person.findOne({
+	const [defaultAdmin, created] = await Person.findOrCreate({
 		where: { username: "admin", permission_level: "admin" },
 	}).catch((err) => {
 		console.error(err);
 	});
-	if (!defaultAdmin) {
-		registerNewAdmin("admin", process.env.DEFAULT_ADMIN_PASSWORD);
+	if (created) {
+		updateDefaultAdmin(defaultAdmin, process.env.DEFAULT_ADMIN_PASSWORD);
+	} else {
+		const password_salt = genSaltSync(10);
+		const password_hash = hashSync(
+			process.env.DEFAULT_ADMIN_PASSWORD,
+			password_salt
+		);
+		if (password_hash != defaultAdmin.hashed_password) {
+			updateDefaultAdmin(defaultAdmin, process.env.DEFAULT_ADMIN_PASSWORD);
+		}
 	}
 }
 

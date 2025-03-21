@@ -26,11 +26,6 @@
             </div>
         </section>
         <section id="users">
-            <% if (Object.keys(users).length <= 0) { %>
-                <div class="empty">
-                    <span>It looks quite empty here...</span>
-                </div>
-            <% } %> 
             <li class="indicator">
                 <div>User</div>
                 <div>Status</div>
@@ -61,6 +56,11 @@
                     </div>
                 </li>
             <% }) %>
+            <% if (Object.keys(users).length <= 0) { %>
+                <div class="empty">
+                    <span>It looks quite empty here...</span>
+                </div>
+            <% } %> 
         </section>
     </main>
 </body>
