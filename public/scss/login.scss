@@ -16,7 +16,7 @@ main {
 
 	#form-container {
         background-color: $beige-color;
-        padding: 8em;
+        padding: 10em;
 
 		form {
 			display: flex;
@@ -29,7 +29,7 @@ main {
 				text-align: center;
 
 				font-family: "Freshman";
-				font-size: 2em;
+				font-size: 3em;
 				font-weight: bolder;
 			}
 
@@ -37,7 +37,11 @@ main {
 				display: flex;
 				flex-direction: column;
 				label {
+					font-size: 1.5em;
 					font-weight: bold;
+				}
+				input {
+					padding: 0.5em;
 				}
 			}
 		}

@@ -12,6 +12,10 @@
   box-sizing: border-box;
   font-family: monospace;
 }
+*:focus {
+  border: 4px solid #f0c10c;
+  outline: none;
+}
 
 img {
   max-width: 100%;
@@ -25,6 +29,7 @@ img {
 
 input[type=submit] {
   background-color: #f0c10c;
+  padding: 0.5em;
   padding-inline: 2em;
   border-style: solid;
   border-color: rgb(191.4285714286, 153.9404761905, 9.5714285714);

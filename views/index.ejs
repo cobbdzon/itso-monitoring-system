@@ -18,7 +18,7 @@
                 </header>
                 <div id="info">
                     <span>
-                        <a href="/profile">View Profile</a>
+                        <a href="/profile">View Full Time Logs</a>
                         <br> <br>
                     </span>
                     <span>
@@ -33,6 +33,9 @@
                 <div id="flash">
                     <%- include('partials/flash', {messages: messages}); %>
                 </div>
+                <form  id="logout" action="/api/logout" method="post">
+                    <input type="submit" value="Logout">
+                </form>
             </section>
         </div>
         <div>   
@@ -63,11 +66,7 @@
                     </details>
                 <% }; %>
             </section>
-            <section id="buttons">
-                <form action="/api/logout" method="post">
-                    <input type="submit" value="Logout">
-                </form>
-    
+            <section id="buttons">    
                 <% if (isTimedIn==false) { %>
                     <form id="timein" action="/api/timein" method="post">
                         <input type="submit" value="Time in">

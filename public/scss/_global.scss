@@ -9,6 +9,10 @@
 	src: local("Freshman"), url(../fonts/freshman/freshman-normal.woff2) format("woff2");
 }
 
+$yellow-color: #f0c10c;
+$beige-color: #f3e0bc;
+$brown-color: #34221b;
+
 * {
 	margin: 0;
 	padding: 0;
@@ -17,11 +21,12 @@
 	box-sizing: border-box;
 
 	font-family: monospace;
-}
 
-$yellow-color: #f0c10c;
-$beige-color: #f3e0bc;
-$brown-color: #34221b;
+	&:focus {
+		border: 4px solid $yellow-color;
+		outline: none;
+	}
+}
 
 img {
 	max-width: 100%;
@@ -35,6 +40,7 @@ img {
 
 input[type="submit"] {
 	background-color: $yellow-color;
+	padding: 0.5em;
 	padding-inline: 2em;
 	border-style: solid;
 	border-color: color.adjust($yellow-color, $lightness: -10%);

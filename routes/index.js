@@ -73,7 +73,7 @@ router.get("/", checkAuthentication, async (req, res, next) => {
 
 		res.render("admin", {
 			navLocation: "admin",
-			profileName: "",
+			profileName: false,
 			username: user.username,
 			users: users,
 			timedInUsers: timedInUsers,
@@ -88,7 +88,7 @@ router.get("/register", (req, res, next) => {
 	} else {
 		res.render("register", {
 			navLocation: "register",
-			profileName: "",
+			profileName: false,
 		});
 	}
 });
@@ -108,7 +108,7 @@ router.get("/login", (req, res, next) => {
 			}
 			res.render("login", {
 				navLocation: "login",
-				profileName: "",
+				profileName: false,
 				users: users,
 			});
 		});
@@ -142,7 +142,7 @@ router.get("/profile/:id", async (req, res, next) => {
 				res.render("profile", {
 					navLocation: "profile",
 					username: requestedUser.username + "'s",
-					profileName: "",
+					profileName: false,
 					userId: req.params.id,
 					isTimedIn: await checkUserTimedIn(requestedUser),
 					timeLogs: userHistoryToGroupedTimeLogs(requestedUser.history),

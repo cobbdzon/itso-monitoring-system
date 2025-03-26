@@ -12,6 +12,10 @@
   box-sizing: border-box;
   font-family: monospace;
 }
+*:focus {
+  border: 4px solid #f0c10c;
+  outline: none;
+}
 
 img {
   max-width: 100%;
@@ -25,6 +29,7 @@ img {
 
 input[type=submit] {
   background-color: #f0c10c;
+  padding: 0.5em;
   padding-inline: 2em;
   border-style: solid;
   border-color: rgb(191.4285714286, 153.9404761905, 9.5714285714);
@@ -50,6 +55,9 @@ body main > div #profile {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  gap: 1em;
+  height: 100%;
 }
 body main > div #profile header {
   font-weight: bolder;
@@ -60,6 +68,9 @@ body main > div #profile #info {
   display: flex;
   flex-direction: column;
   text-align: center;
+}
+body main > div #profile #logout {
+  margin-top: auto;
 }
 body main > div #logs {
   background-color: rgb(85.5696202532, 55.9493670886, 44.4303797468);

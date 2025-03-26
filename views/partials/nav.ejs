@@ -11,9 +11,11 @@
     </div>
     <div id="nav-links">
         <div id="nav-profile">
-            <a href="/profile">
-                <%- profileName %>
-            </a>
+            <% if (profileName) { %>
+                <a href="/profile">
+                    <%- profileName %>
+                </a>
+            <% } %> 
         </div>
     </div>
 </nav>
