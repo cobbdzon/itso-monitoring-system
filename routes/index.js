@@ -146,6 +146,7 @@ router.get("/profile/:id", async (req, res, next) => {
 					userId: req.params.id,
 					isTimedIn: await checkUserTimedIn(requestedUser),
 					timeLogs: userHistoryToGroupedTimeLogs(requestedUser.history),
+					isAdmin: true,
 				});
 			} else {
 				req.flash("error", `User with id: ${req.params.id} not found!`);

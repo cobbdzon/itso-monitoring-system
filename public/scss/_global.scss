@@ -38,10 +38,69 @@ img {
 	shape-margin: 1rem;
 }
 
+// buttons
 input[type="submit"] {
 	background-color: $yellow-color;
 	padding: 0.5em;
 	padding-inline: 2em;
-	border-style: solid;
-	border-color: color.adjust($yellow-color, $lightness: -10%);
+	border: solid color.adjust($yellow-color, $lightness: -10%);
+}
+
+button {
+	background-color: $yellow-color;
+	padding: 0.5em;
+	padding-inline: 2em;
+	border: solid color.adjust($yellow-color, $lightness: -10%);
+}
+
+// confirm_dialogbox
+.dialogbox {
+	display: none;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	padding: 2.5em;	
+
+	color: white;
+	background-color: #34221b;
+	border: 2px solid color.adjust($brown-color, $lightness: -10%);
+
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+
+	.title {
+		font-weight: 900;
+		color: $yellow-color;
+		font-size: 2em;
+	}
+
+	.textbox {
+		input {
+			width: 100%;
+		}
+	}
+
+	.buttons {
+		display: flex;
+		justify-content: end;
+		gap: 1em;
+		button {
+			padding: 0.25em;
+			padding-inline: 1em;
+		}
+		.no {
+			background-color: hsla(0, 100%, 30%, 1);
+			border: solid hsla(0, 100%, 35%, 1);
+			color: white;
+		}
+		.yes {
+			background-color: hsla(128, 100%, 30%, 1);
+			border: solid hsla(128, 100%, 35%, 1);
+			color: white;
+		}
+	};
 }

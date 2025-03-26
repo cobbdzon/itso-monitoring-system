@@ -3,6 +3,23 @@
 
 body {
 	background-color: $beige-color;
+
+	#changeusername_dialogbox {
+		display: none;
+		.dialogbox {
+			.textbox {
+				input[valid="false"] {
+					background-color: hsla(0, 100%, 80%, 1);
+					border-color: hsla(0, 100%, 30%, 1);
+				}
+			}
+		}
+	}
+
+	#deleteuser_dialogbox {
+		display: none;
+	}
+
 	main {
 		display: flex;
 		flex-direction: column;
@@ -11,7 +28,7 @@ body {
 		padding-top: 6em;
 		padding-inline: 25%;
 
-		height: 75vh;
+		height: 100%;
 
 		> * {
 			width: 100%;
@@ -91,7 +108,7 @@ body {
 			}
 		}
 
-		#buttons {
+		#logs-buttons {
 			display: flex;
 			justify-content: center;
 			gap: 1em;
@@ -114,6 +131,34 @@ body {
 				background-color: hsla(0, 100%, 30%, 1);
 				border-color: hsla(0, 75%, 30%, 1);
 				color: $beige-color;
+			}
+		}
+
+		#admin {
+			margin-top: 6em;
+			padding-bottom: 6em;
+
+			display: flex;
+			flex-direction: column;
+			gap: 1em;
+
+			.title {
+				font-weight: 900;
+				font-size: 2.5em;
+				color: red;
+				text-align: center;
+			}
+			.buttons {
+				display: flex;
+				justify-content: center;
+				gap: 2em;
+
+				button {
+					font-weight: 900;
+					background-color: hsla(0, 100%, 40%, 1);
+					border: solid hsla(0, 100%, 45%, 1);
+					color: white;
+				}
 			}
 		}
 	}

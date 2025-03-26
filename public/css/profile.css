@@ -31,12 +31,70 @@ input[type=submit] {
   background-color: #f0c10c;
   padding: 0.5em;
   padding-inline: 2em;
-  border-style: solid;
-  border-color: rgb(191.4285714286, 153.9404761905, 9.5714285714);
+  border: solid rgb(191.4285714286, 153.9404761905, 9.5714285714);
+}
+
+button {
+  background-color: #f0c10c;
+  padding: 0.5em;
+  padding-inline: 2em;
+  border: solid rgb(191.4285714286, 153.9404761905, 9.5714285714);
+}
+
+.dialogbox {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2.5em;
+  color: white;
+  background-color: #34221b;
+  border: 2px solid rgb(18.4303797468, 12.0506329114, 9.5696202532);
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.dialogbox .title {
+  font-weight: 900;
+  color: #f0c10c;
+  font-size: 2em;
+}
+.dialogbox .textbox input {
+  width: 100%;
+}
+.dialogbox .buttons {
+  display: flex;
+  justify-content: end;
+  gap: 1em;
+}
+.dialogbox .buttons button {
+  padding: 0.25em;
+  padding-inline: 1em;
+}
+.dialogbox .buttons .no {
+  background-color: hsl(0, 100%, 30%);
+  border: solid hsl(0, 100%, 35%);
+  color: white;
+}
+.dialogbox .buttons .yes {
+  background-color: hsl(128, 100%, 30%);
+  border: solid hsl(128, 100%, 35%);
+  color: white;
 }
 
 body {
   background-color: #f3e0bc;
+}
+body #changeusername_dialogbox {
+  display: none;
+}
+body #changeusername_dialogbox .dialogbox .textbox input[valid=false] {
+  background-color: hsl(0, 100%, 80%);
+  border-color: hsl(0, 100%, 30%);
+}
+body #deleteuser_dialogbox {
+  display: none;
 }
 body main {
   display: flex;
@@ -44,7 +102,7 @@ body main {
   gap: 1em;
   padding-top: 6em;
   padding-inline: 25%;
-  height: 75vh;
+  height: 100%;
 }
 body main > * {
   width: 100%;
@@ -102,26 +160,50 @@ body main #logs .log-group .log .log-type[logType=in] {
 body main #logs .log-group .log .log-type[logType=out] {
   background-color: hsla(0, 100%, 50%, 0.25);
 }
-body main #buttons {
+body main #logs-buttons {
   display: flex;
   justify-content: center;
   gap: 1em;
   margin-top: auto;
 }
-body main #buttons form {
+body main #logs-buttons form {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-body main #buttons #timein input {
+body main #logs-buttons #timein input {
   background-color: hsl(128, 100%, 30%);
   border-color: hsl(128, 75%, 30%);
   color: #f3e0bc;
 }
-body main #buttons #timeout input {
+body main #logs-buttons #timeout input {
   background-color: hsl(0, 100%, 30%);
   border-color: hsl(0, 75%, 30%);
   color: #f3e0bc;
+}
+body main #admin {
+  margin-top: 6em;
+  padding-bottom: 6em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+body main #admin .title {
+  font-weight: 900;
+  font-size: 2.5em;
+  color: red;
+  text-align: center;
+}
+body main #admin .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+}
+body main #admin .buttons button {
+  font-weight: 900;
+  background-color: hsl(0, 100%, 40%);
+  border: solid hsl(0, 100%, 45%);
+  color: white;
 }
 
 /*# sourceMappingURL=profile.css.map */

@@ -139,14 +139,71 @@ router.post("/timeout/:id", async (req, res, next) => {
 	}
 });
 
-router.post("changeusername", async (req, res, next) => {
+router.post("/changeusername", async (req, res, next) => {
 	const user = req.user;
 	const { newUsername } = req.body;
 	if (user && user.permission_level == "admin") {
-		changeUsername(user, newUsername);
+		const result = await changeUsername(user, newUsername);
+		if (result == true) {
+			req.flash("success", "Successfully changed username!");
+			res.redirect("back");
+		} else if (result == false) {
+			req.flash("error", "Username is invalid!");
+			res.statusCode(400);
+		} else if (result == null) {
+			req.flash("error", "User is not valid");
+			res.statusCode(400);
+		}
 	} else {
 		req.flash("error", "Unauthorized");
 		res.statusCode(401);
+	}
+});
+
+router.post("/changeusername/:id", async (req, res, next) => {
+	const user = req.user;
+	const { newUsername } = req.body;
+	if (user) {
+		if (user.permission_level == "admin") {
+			const requestedUser = await getUserFromId(req.params.id);
+			const result = await changeUsername(requestedUser, newUsername);
+			if (result == true) {
+				req.flash("success", "Successfully changed username!");
+			} else if (result == false) {
+				req.flash("error", "Username is invalid!");
+			} else if (result == null) {
+				req.flash("error", "User is not valid");
+			}
+			res.redirect("back");
+		} else {
+			req.flash("error", "Unauthorized");
+			res.redirect("/");
+		}
+	} else {
+		req.flash("error", "Please log in first!");
+		res.redirect("/login");
+	}
+});
+
+router.post("/deleteuser/:id", async (req, res, next) => {
+	const user = req.user;
+	if (user) {
+		if (user.permission_level == "admin") {
+			const requestedUser = await getUserFromId(req.params.id);
+			if (requestedUser) {
+				await requestedUser.destroy();
+				res.redirect("back");
+			} else {
+				req.flash("error", `User with id: ${req.params.id} not found!`);
+				res.redirect("/");
+			}
+		} else {
+			req.flash("error", "Unauthorized");
+			res.redirect("/");
+		}
+	} else {
+		req.flash("error", "Please log in first!");
+		res.redirect("/login");
 	}
 });
 

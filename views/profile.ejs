@@ -6,14 +6,26 @@
         Profile
     </title>
     <link rel='stylesheet' href='/css/profile.css' />
+    <script src="/js/profile.js"></script>
 </head>
 
 <body>
     <%- include('partials/nav', {navLocation: navLocation}); %>
+    <% if (isAdmin == true) { %>
+        <div id="changeusername_dialogbox">
+            <%- include('partials/textbox_dialogbox', {dialogTitle: "Change Username", dialogDescription: "Enter new username below", dialogNo: "Cancel", dialogYes: "Confirm"}); %>
+        </div>
+        <div id="deleteuser_dialogbox">
+            <%- include('partials/confirm_dialogbox', {dialogTitle: "Delete User?", dialogDescription: "Are you sure you want to delete this user?", dialogNo: "Cancel", dialogYes: "Confirm"}); %>
+        </div>
+    <% } %>
     <main>
         <header>
             <%= username %> TIME LOG 
         </header>
+        <div id="flash">
+            <%- include('partials/flash', {messages: messages}); %>
+        </div>
         <section id="logs">
             <% if (Object.keys(timeLogs).length <= 0) { %>
                 <div class="empty">
@@ -41,7 +53,7 @@
                 </details>
             <% }; %>
         </section>
-        <section id="buttons">
+        <section id="logs-buttons">
             <% if (isTimedIn==false) { %>
                 <form id="timein" action="/api/timein/<%= userId %> " method="post">
                     <input type="submit" value="Time in">
@@ -53,6 +65,19 @@
                 </form>
             <% } %>
         </section>
+        <% if (isAdmin == true) { %>
+            <section id="admin">
+                <div class="title">DANGER ZONE</div>
+                <div class="buttons">
+                    <button id="changeusername">
+                        Change Username
+                    </button>
+                    <button id="deleteuser">
+                        Delete User
+                    </button>
+                </div>
+            </section>
+        <% } %>
     </main>
 </body>
 

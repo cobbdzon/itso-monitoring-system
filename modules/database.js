@@ -159,7 +159,10 @@ async function timeOutUser(userOrUsername) {
 
 async function changeUsername(userOrUsername, newUsername) {
 	const user = await getUserOrUsername(userOrUsername);
-	if (!user) return false;
+	if (!user) return null;
+
+	const isValid = /^[a-zA-Z][a-zA-Z0-9_\ ]*$/.test(newUsername);
+	if (!isValid) return false;
 
 	await user.update({ username: newUsername });
 	return true;
