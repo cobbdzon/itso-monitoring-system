@@ -33,8 +33,8 @@ function checkAuthentication(req, res, next) {
 passport.use(
 	new LocalStrategy(
 		{ usernameField: "username", passwordField: "password" },
-		authenthicateUser
-	)
+		authenthicateUser,
+	),
 );
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser(async (id, done) => {

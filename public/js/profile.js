@@ -65,7 +65,9 @@ function handleChangeUsername() {
 }
 
 function handleDeleteUser() {
-	const deleteUser_dialogBox = document.getElementById("deleteuser_dialogbox");
+	const deleteUser_dialogBox = document.getElementById(
+		"deleteuser_dialogbox",
+	);
 	if (!deleteUser_dialogBox) return;
 
 	const dialogButtons =

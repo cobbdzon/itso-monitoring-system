@@ -1,11 +1,11 @@
 import { Router } from "express";
+import { checkAuthentication } from "../modules/credentials.js";
 import {
 	checkUserTimedIn,
 	getLatestTimeLog,
 	getUserFromId,
-	Person,
+	Person
 } from "../modules/database.js";
-import { checkAuthentication } from "../modules/credentials.js";
 
 var router = Router();
 
@@ -41,7 +41,10 @@ router.get("/", checkAuthentication, async (req, res, next) => {
 			// check if missed
 			const todayDate = new Date();
 			if (isTimedIn && todayDate.getDate() != logDate.getDate()) {
-				req.flash("error", "You failed to time out yesterday! Please time out and time in to refresh your log.")
+				req.flash(
+					"error",
+					"You failed to time out yesterday! Please time out and time in to refresh your log."
+				);
 			}
 		} else {
 			lastLog = "User has never logged yet!";

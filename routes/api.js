@@ -5,7 +5,7 @@ import {
 	Person,
 	registerNewUser,
 	timeInUser,
-	timeOutUser,
+	timeOutUser
 } from "../modules/database.js";
 import passport, { getUserFromUsername } from "../modules/credentials.js";
 
@@ -55,7 +55,7 @@ router.post(
 		successRedirect: "/",
 		failureRedirect: "/login",
 		failureFlash: true,
-	})
+	}),
 );
 
 router.post("/logout", (req, res, next) => {
@@ -102,7 +102,7 @@ router.post("/timein/:id", async (req, res, next) => {
 		} else {
 			req.flash(
 				"error",
-				"You do not have sufficient permission level to view this"
+				"You do not have sufficient permission level to view this",
 			);
 			res.redirect("/");
 		}
@@ -129,7 +129,7 @@ router.post("/timeout/:id", async (req, res, next) => {
 		} else {
 			req.flash(
 				"error",
-				"You do not have sufficient permission level to view this"
+				"You do not have sufficient permission level to view this",
 			);
 			res.redirect("/");
 		}

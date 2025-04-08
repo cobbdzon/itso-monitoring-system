@@ -1,14 +1,23 @@
 {
-    "sqltools.connections": [
-        {
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 5432,
-            "driver": "PostgreSQL",
-            "name": "CLA",
-            "database": "cla-db-dev",
-            "username": "admin",
-            "password": ""
-        }
-    ]
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact"
+	],
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit"
+	},
+	"sqltools.connections": [
+		{
+			"previewLimit": 50,
+			"server": "localhost",
+			"port": 5432,
+			"driver": "PostgreSQL",
+			"name": "CLA",
+			"database": "cla-db-dev",
+			"username": "admin",
+			"password": ""
+		}
+	]
 }

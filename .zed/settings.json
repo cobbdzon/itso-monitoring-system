@@ -1,0 +1,26 @@
+// Folder-specific settings
+//
+// For a full list of overridable settings, and general information on folder-specific settings,
+// see the documentation: https://zed.dev/docs/configuring-zed#settings-files
+{
+	"hard_tabs": true,
+	"tab_size": 4,
+	"languages": {
+		"JavaScript": {
+			"prettier": {
+				"use": false
+			},
+			"code_actions_on_format": {
+				"source.fixAll.eslint": true
+			}
+		}
+	},
+	"lsp": {
+		"eslint": {
+			"settings": {
+				"nodePath": "node_modules/.bin"
+			},
+			"codeActionOnSave": {}
+		}
+	}
+}
