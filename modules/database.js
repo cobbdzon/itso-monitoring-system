@@ -4,6 +4,8 @@ import { configDotenv } from "dotenv";
 
 configDotenv();
 
+const DATABASE_DIALECT = "postgresql";
+
 const DATABASE_NAME = process.env.DATABASE_NAME || "cla-db-dev";
 const DATABASE_USER = process.env.DATABASE_USER || "admin";
 const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD || "";
@@ -18,7 +20,7 @@ const SequelizeInstance = new Sequelize(
 	{
 		host: DATABASE_HOST,
 		port: DATABASE_PORT,
-		dialect: "postgresql",
+		dialect: DATABASE_DIALECT,
 		logging: false,
 	}
 );
@@ -51,6 +53,27 @@ const Person = SequelizeInstance.define("Person", {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
+
+	// USER DATA
+	// TODO: set all user data below to allowNull: true (BY ADDING FUNCTIONALITY)
+	full_name: {
+		type: DataTypes.STRING,
+	},
+	member_type: {
+		type: ENUM("CLA", "OJT", "SA", "WI"),
+	},
+	assigned_building: {
+		type: DataTypes.INTEGER,
+	},
+	accumulated_hours: {
+		type: DataTypes.FLOAT,
+		defaultValue: 0,
+		allowNull: false
+	},
+	schedule: {
+		type: DataTypes.JSONB,
+	},
+
 	lastTimeIn: {
 		type: DataTypes.INTEGER,
 		allowNull: false,
@@ -198,8 +221,7 @@ async function __registerDefaultAdmin() {
 	}
 }
 
-SequelizeInstance.sync({ forced: true });
-__registerDefaultAdmin();
+SequelizeInstance.sync({ forced: true }).then(__registerDefaultAdmin);
 
 export {
 	SequelizeInstance,
